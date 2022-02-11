@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import './Css/Login.css';
 
+const PASSWORD_MIN_LIMIT = 6;
 class Login extends React.Component {
   constructor() {
     super();
@@ -33,13 +34,21 @@ class Login extends React.Component {
   }
 
   handleValidation() {
-    const { passwordValue } = this.state;
-    const PASSWORD_MIN_LIMIT = 6;
-    const validatePassword = passwordValue.length <= PASSWORD_MIN_LIMIT;
+    const { passwordValue, emailValue } = this.state;
 
-    this.setState({
-      btnDisable: validatePassword,
-    });
+    const regexEmail = /\w+@+\w+\.+\w/;
+    const validateEmail = emailValue.match(regexEmail);
+    const validatePassword = passwordValue.length >= PASSWORD_MIN_LIMIT;
+
+    if (validateEmail && validatePassword) {
+      this.setState({
+        btnDisable: false,
+      });
+    } else {
+      this.setState({
+        btnDisable: true,
+      });
+    }
   }
 
   handleChange({ target }) {
@@ -80,7 +89,7 @@ class Login extends React.Component {
               elementId="button"
               btnType="submit"
               isDisable={ btnDisable }
-              handleClick={ this.onSubmit }
+              // handleClick={ this.onSubmit }
             >
               Entrar
             </Button>
