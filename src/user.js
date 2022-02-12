@@ -10,7 +10,6 @@ const INITIAL_STATE = {
 const loginForm = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN_EMAIL:
-    console.log(action);
     return {
       ...state,
       user: {
