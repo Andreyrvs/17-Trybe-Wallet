@@ -1,10 +1,8 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import LOGIN_EMAIL from './Actions';
+import LOGIN_EMAIL from './actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const loginForm = (state = INITIAL_STATE, action) => {
@@ -12,9 +10,7 @@ const loginForm = (state = INITIAL_STATE, action) => {
   case LOGIN_EMAIL:
     return {
       ...state,
-      user: {
-        email: action.payload.email,
-      },
+      email: action.payload.email,
     };
   default:
     return state;

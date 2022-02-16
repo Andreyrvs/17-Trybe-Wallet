@@ -4,22 +4,20 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { user } = this.props;
-    console.log(user);
+    const { userEmail, dataTest } = this.props;
     return (
       <div>
-        <span data-testid="email-field">{user}</span>
+        <span data-testid={ dataTest }>{userEmail}</span>
       </div>
     );
   }
 }
 
-const mapStateToProps = (payload) => {
-  console.log(payload);
-  return { user: payload.email };
-};
-Header.protoType = {
-  user: PropTypes.object,
+const mapStateToProps = (state) => ({ userEmail: state.user.email });
+
+Header.propTypes = {
+  userEmail: PropTypes.object,
+  dataTest: PropTypes.string,
 }.isRequire;
 
 export default connect(mapStateToProps)(Header);

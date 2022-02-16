@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../Actions';
+import { loginEmail } from '../actions';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import './Css/Login.css';
@@ -11,33 +11,32 @@ class Login extends React.Component {
   constructor() {
     super();
 
+    this.handleChange = this.handleChange.bind(this);
+    this.hadleSubmit = this.hadleSubmit.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
+
     this.state = {
-      emailValue: '',
+      email: '',
       passwordValue: '',
       btnDisable: true,
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleValidation = this.handleValidation.bind(this);
   }
 
-  onSubmit(event) {
+  hadleSubmit(event) {
     event.preventDefault(event);
-    const { emailValue } = this.state;
+    const { email } = this.state;
     const { history, onSubmitForm } = this.props;
     onSubmitForm({
-      email: emailValue,
+      email,
     });
-
     history.push('/carteira');
   }
 
   handleValidation() {
-    const { passwordValue, emailValue } = this.state;
+    const { passwordValue, email } = this.state;
 
-    const regexEmail = /\w+@+\w+\.+\w/;
-    const validateEmail = emailValue.match(regexEmail);
+    const regexEmail = /\w+@+\w+\.com/ig;
+    const validateEmail = regexEmail.test(email);
     const validatePassword = passwordValue.length >= PASSWORD_MIN_LIMIT;
 
     if (validateEmail && validatePassword) {
@@ -60,17 +59,17 @@ class Login extends React.Component {
   }
 
   render() {
-    const { emailValue, passwordValue, btnDisable } = this.state;
+    const { email, passwordValue, btnDisable } = this.state;
     return (
       <div className="login">
-        <form className="login__form" onSubmit={ (event) => this.onSubmit(event) }>
+        <form className="login__form" onSubmit={ (event) => this.hadleSubmit(event) }>
           <fieldset className="login__form-fieldset">
             <Input
               elementId="email"
               dataTest="email-input"
               onInputChange={ this.handleChange }
-              value={ emailValue }
-              name="emailValue"
+              value={ email }
+              name="email"
               inputType="email"
             >
               Email
@@ -89,7 +88,7 @@ class Login extends React.Component {
               elementId="button"
               btnType="submit"
               isDisable={ btnDisable }
-              handleClick={ this.onSubmit }
+              // handleClick={ () => {} }
             >
               Entrar
             </Button>
@@ -101,11 +100,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmitForm: (state) => dispatch(login(state)),
+  onSubmitForm: (state) => dispatch(loginEmail(state)),
 });
 
 Login.propTypes = {
-  onSubmitForm: PropTypes.func,
+  onSubmitForm: PropTypes.object,
 }.isRequire;
 
 export default connect(null, mapDispatchToProps)(Login);
