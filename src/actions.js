@@ -1,8 +1,13 @@
 // Coloque aqui suas actions
-const LOGIN_EMAIL = 'LOGIN_EMAIL';
+export const USER_EMAIL = 'USER_EMAIL';
+export const USER_EXPENSES = 'USER_EXPENSES';
 
-export function loginEmail(payload) {
-  return { type: LOGIN_EMAIL, payload };
+export function userEmail(payload) {
+  return { type: USER_EMAIL, payload };
 }
 
-export default LOGIN_EMAIL;
+export function userExpenses(payload) {
+  return { type: USER_EXPENSES, payload };
+}
+
+export default userEmail;

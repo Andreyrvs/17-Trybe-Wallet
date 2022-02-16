@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loginEmail } from '../actions';
+import { userEmail } from '../actions';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import './Css/Login.css';
@@ -100,7 +100,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmitForm: (state) => dispatch(loginEmail(state)),
+  onSubmitForm: (state) => dispatch(userEmail(state)),
 });
 
 Login.propTypes = {

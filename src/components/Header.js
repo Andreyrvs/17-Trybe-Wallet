@@ -8,12 +8,20 @@ class Header extends Component {
     return (
       <div>
         <span data-testid={ dataTest }>{userEmail}</span>
+        <span
+          data-testid="total-field"
+        >
+          Despesa Total: 0
+        </span>
+        <span data-testid="header-currency-field">BRL</span>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({ userEmail: state.user.email });
+const mapStateToProps = (state) => ({
+  userEmail: state.user.email,
+});
 
 Header.propTypes = {
   userEmail: PropTypes.object,
