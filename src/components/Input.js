@@ -24,7 +24,7 @@ class Input extends Component {
           value={ value }
           type={ inputType }
           checked={ isCheck }
-          autoComplete="on"
+          autoComplete="off"
         />
       </label>
     );
