@@ -5,19 +5,23 @@ import { connect } from 'react-redux';
 class Header extends Component {
   // constructor() {
   //   super();
-  //   this.handleTotalField = this.handleTotalField.bind(this);
+  //   this.handleUserExpense = this.handleUserExpense.bind(this);
 
   //   this.state = {
   //     totalExpense: 0,
   //   };
   // }
 
+  // handleUserExpense() {
+  //   const { handleUserExpense } = this.props;
+  //   this.setState({
+  //     totalExpense: handleUserExpense,
+  //   });
+  // }
+
   render() {
-    const { userEmail, dataTest } = this.props;
     // const { totalExpense } = this.state;
-    // const { exchangeRates } = totalField;
-    // console.log(totalField);
-    // console.log(exchangeRates);
+    const { userEmail, dataTest, totalExpense } = this.props;
 
     return (
       <header className="header">
@@ -25,7 +29,9 @@ class Header extends Component {
         <span
           data-testid="total-field"
         >
-          Despesa Total: 0
+          Despesa Total:
+          {' '}
+          {totalExpense}
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </header>
@@ -35,7 +41,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
-  totalField: state.wallet.expenses,
+  userExpenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
