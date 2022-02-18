@@ -1,9 +1,13 @@
 const API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
 const fetchAPI = async () => {
-  const response = await (await fetch(API_URL)).json();
+  try {
+    const response = await (await fetch(API_URL)).json();
 
-  return response;
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 // console.log(
 //   fetchAPI(),

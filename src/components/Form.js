@@ -119,7 +119,7 @@ class Form extends Component {
             name="value"
             value={ value }
           >
-            Valodor:
+            Valor:
             {' '}
           </Input>
 
