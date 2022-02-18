@@ -27,3 +27,17 @@ input {
   background-color: var(--input-bg-color);
   color: var(--main-text-color);
 } 
+
+select {
+  background-color: var(--input-bg-color);
+  color: var(--main-text-color);
+}
+
+.header {
+  background-color: var(--input-bg-color);
+  margin-bottom: 1rem;
+}
+
+table, tr, th {
+  border: 1px  solid var(--main-text-color);
+}

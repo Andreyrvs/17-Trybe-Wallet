@@ -3,13 +3,14 @@ import { USER_EXPENSES } from './actions';
 
 const INITIAL_STATE = {
   currencies: [],
-  expenses: [0],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER_EXPENSES:
     return {
+      ...state,
       expenses: action.payload.expenses,
     };
   default:
