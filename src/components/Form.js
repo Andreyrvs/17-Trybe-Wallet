@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { userExpenses } from '../actions';
 import Input from './Input';
 import Button from './Button';
-import { userExpenses } from '../actions';
 import fetchAPI from '../services';
 
 const METHOD_LIST = [
@@ -28,16 +28,36 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleMethod = this.handleMethod.bind(this);
     this.handleTag = this.handleTag.bind(this);
+    this.handleCurrency = this.handleCurrency.bind(this);
+    this.handleDropdown = this.handleDropdown.bind(this);
 
     this.state = {
       id: 0,
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-
     };
+  }
+
+  async componentDidMount() {
+    this.handleCurrency();
+  }
+
+  async handleCurrency() {
+    const { expensesForm } = this.props;
+    const responseAPI = await fetchAPI();
+    const arrayCoin = Object.values(responseAPI);
+
+    const filteredCoin = arrayCoin.filter((coin) => {
+      if (coin.code !== 'USDT' && coin.codein !== 'BRLT') {
+        // console.log(coin.codein);
+        return coin.code;
+      }
+      return '';
+    });
+    expensesForm({ filter: filteredCoin });
   }
 
   handleChange({ target }) {
@@ -46,6 +66,10 @@ class Form extends Component {
     this.setState({
       [name]: type === 'checkbox' ? checked : value,
     });
+  }
+
+  handleDropdown(event) {
+    this.setState({ currency: event });
   }
 
   handleMethod(event) {
@@ -82,6 +106,9 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    const { filteredCoin } = this.props;
+    // console.log(filteredCoin.map((el) => el.code));
+
     return (
       <form id="form-expenses" onSubmit={ (event) => this.handleExpenses(event) }>
         <fieldset>
@@ -92,7 +119,7 @@ class Form extends Component {
             name="value"
             value={ value }
           >
-            Value:
+            Valodor:
             {' '}
           </Input>
 
@@ -103,23 +130,36 @@ class Form extends Component {
             name="description"
             value={ description }
           >
-            Description:
+            Descrição:
             {' '}
           </Input>
 
-          <Input
-            dataTest="currency-input"
-            elementId="input-currency"
-            onInputChange={ this.handleChange }
-            name="currency"
-            value={ currency }
-          >
-            Currency:
+          <label htmlFor="select-currency">
+            Moeda:
             {' '}
-          </Input>
+            <select
+              data-testid="currency-input"
+              id="select-currency"
+              onChange={ (event) => this.handleDropdown(event.target.value) }
+              name="currency"
+              value={ currency }
+            >
+              {filteredCoin.map((currencies) => (
+                <option
+                  key={ currencies.name }
+                  data-testid={ currencies.code }
+                  value={ currencies.code }
+                >
+                  {currencies.code}
+
+                </option>
+
+              ))}
+            </select>
+          </label>
 
           <label htmlFor="input-method">
-            Method:
+            Método de pegamento:
             {' '}
             <select
               data-testid="method-input"
@@ -140,8 +180,8 @@ class Form extends Component {
             </select>
           </label>
 
-          <label htmlFor="input-method">
-            tag:
+          <label htmlFor="input-tag">
+            Tag:
             {' '}
             <select
               data-testid="tag-input"
@@ -161,17 +201,23 @@ class Form extends Component {
               ))}
             </select>
           </label>
+
           <Button
             btnType="submit"
             elementId="add-expenses"
           >
             Adicionar despesa
           </Button>
+
         </fieldset>
       </form>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  filteredCoin: state.wallet.filter,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   expensesForm: (state) => dispatch(userExpenses(state)),
@@ -188,4 +234,4 @@ Form.propTypes = {
   }),
 }.isRequire;
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

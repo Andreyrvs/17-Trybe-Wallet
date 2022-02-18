@@ -4,6 +4,7 @@ import { USER_EXPENSES } from './actions';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  filter: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -12,6 +13,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: action.payload.expenses,
+      filter: action.payload.filter,
     };
   default:
     return state;
