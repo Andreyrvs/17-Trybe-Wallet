@@ -28,8 +28,8 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleMethod = this.handleMethod.bind(this);
     this.handleTag = this.handleTag.bind(this);
-    this.handleCurrency = this.handleCurrency.bind(this);
-    this.handleDropdown = this.handleDropdown.bind(this);
+    // this.handleCurrency = this.handleCurrency.bind(this);
+    // this.handleDropdown = this.handleDropdown.bind(this);
 
     this.state = {
       id: 0,
@@ -41,24 +41,24 @@ class Form extends Component {
     };
   }
 
-  async componentDidMount() {
-    this.handleCurrency();
-  }
+  // componentDidMount() {
+  //   this.handleCurrency();
+  // }
 
-  async handleCurrency() {
-    const { expensesForm } = this.props;
-    const responseAPI = await fetchAPI();
-    const arrayCoin = Object.values(responseAPI);
+  // async handleCurrency() {
+  //   const { expensesForm } = this.props;
+  //   const responseAPI = await fetchAPI();
+  //   const arrayCoin = Object.values(responseAPI);
 
-    const filteredCoin = arrayCoin.filter((coin) => {
-      if (coin.code !== 'USDT' && coin.codein !== 'BRLT') {
-        // console.log(coin.codein);
-        return coin.code;
-      }
-      return '';
-    });
-    expensesForm({ filter: filteredCoin });
-  }
+  //   const filteredCoin = arrayCoin.filter((coin) => {
+  //     if (coin.code !== 'USDT' && coin.codein !== 'BRLT') {
+  //       // console.log(coin.codein);
+  //       return coin.code;
+  //     }
+  //     return '';
+  //   });
+  //   expensesForm({ filter: filteredCoin });
+  // }
 
   handleChange({ target }) {
     const { name, value, type, checked } = target;
@@ -68,9 +68,9 @@ class Form extends Component {
     });
   }
 
-  handleDropdown(event) {
-    this.setState({ currency: event });
-  }
+  // handleDropdown(event) {
+  //   this.setState({ currency: event });
+  // }
 
   handleMethod(event) {
     this.setState({ method: event });
@@ -106,7 +106,7 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { filteredCoin } = this.props;
+    // const { filteredCoin } = this.props;
     // console.log(filteredCoin.map((el) => el.code));
 
     return (
@@ -144,17 +144,13 @@ class Form extends Component {
               name="currency"
               value={ currency }
             >
-              {filteredCoin.map((currencies) => (
-                <option
-                  key={ currencies.name }
-                  data-testid={ currencies.code }
-                  value={ currencies.code }
-                >
-                  {currencies.code}
+              {/* {filteredCoin.map((currencies) => ( */}
+              <option>
+                {/* {currencies.code} */}
 
-                </option>
+              </option>
 
-              ))}
+              {/* ))} */}
             </select>
           </label>
 
