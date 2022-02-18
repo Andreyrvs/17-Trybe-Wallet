@@ -28,8 +28,6 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleMethod = this.handleMethod.bind(this);
     this.handleTag = this.handleTag.bind(this);
-    // this.handleCurrency = this.handleCurrency.bind(this);
-    // this.handleDropdown = this.handleDropdown.bind(this);
 
     this.state = {
       id: 0,
@@ -41,25 +39,6 @@ class Form extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.handleCurrency();
-  // }
-
-  // async handleCurrency() {
-  //   const { expensesForm } = this.props;
-  //   const responseAPI = await fetchAPI();
-  //   const arrayCoin = Object.values(responseAPI);
-
-  //   const filteredCoin = arrayCoin.filter((coin) => {
-  //     if (coin.code !== 'USDT' && coin.codein !== 'BRLT') {
-  //       // console.log(coin.codein);
-  //       return coin.code;
-  //     }
-  //     return '';
-  //   });
-  //   expensesForm({ filter: filteredCoin });
-  // }
-
   handleChange({ target }) {
     const { name, value, type, checked } = target;
 
@@ -68,9 +47,9 @@ class Form extends Component {
     });
   }
 
-  // handleDropdown(event) {
-  //   this.setState({ currency: event });
-  // }
+  handleCurrency(event) {
+    this.setState({ currency: event });
+  }
 
   handleMethod(event) {
     this.setState({ method: event });
@@ -106,8 +85,6 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    // const { filteredCoin } = this.props;
-    // console.log(filteredCoin.map((el) => el.code));
 
     return (
       <form id="form-expenses" onSubmit={ (event) => this.handleExpenses(event) }>
@@ -140,16 +117,14 @@ class Form extends Component {
             <select
               data-testid="currency-input"
               id="select-currency"
-              onChange={ (event) => this.handleDropdown(event.target.value) }
+              onChange={ (event) => this.handleCurrency(event.target.value) }
               name="currency"
               value={ currency }
             >
               {/* {filteredCoin.map((currencies) => ( */}
               <option>
                 {/* {currencies.code} */}
-
               </option>
-
               {/* ))} */}
             </select>
           </label>
