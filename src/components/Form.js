@@ -28,6 +28,9 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleMethod = this.handleMethod.bind(this);
     this.handleTag = this.handleTag.bind(this);
+    // this.handleSumExpenses = this.handleSumExpenses.bind(this);
+    this.handleCurrency = this.handleCurrency.bind(this);
+    this.handleDropdown = this.handleDropdown.bind(this);
 
     this.state = {
       id: 0,
@@ -36,7 +39,12 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      coin: '',
     };
+  }
+
+  componentDidMount() {
+    this.handleCurrency();
   }
 
   handleChange({ target }) {
@@ -47,7 +55,7 @@ class Form extends Component {
     });
   }
 
-  handleCurrency(event) {
+  handleDropdown(event) {
     this.setState({ currency: event });
   }
 
@@ -66,6 +74,7 @@ class Form extends Component {
 
     this.setState((prevState) => ({
       id: prevState.id + 1,
+      value: 0,
     }));
 
     const exchangeRates = await fetchAPI();
@@ -83,8 +92,18 @@ class Form extends Component {
     });
   }
 
+  async handleCurrency() {
+    const responseAPI = await fetchAPI();
+    const arrayCoin = Object.keys(responseAPI);
+
+    const filteredCoin = arrayCoin.filter((coin) => coin !== 'USDT');
+    this.setState({
+      coin: filteredCoin,
+    });
+  }
+
   render() {
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag, coin } = this.state;
 
     return (
       <form id="form-expenses" onSubmit={ (event) => this.handleExpenses(event) }>
@@ -117,15 +136,16 @@ class Form extends Component {
             <select
               data-testid="currency-input"
               id="select-currency"
-              onChange={ (event) => this.handleCurrency(event.target.value) }
+              onChange={ (event) => this.handleDropdown(event.target.value) }
               name="currency"
               value={ currency }
             >
-              {/* {filteredCoin.map((currencies) => ( */}
-              <option>
-                {/* {currencies.code} */}
-              </option>
-              {/* ))} */}
+              { coin.length > 0
+                && coin.map((currencies) => (
+                  <option key={ currencies } data-testid={ currencies }>
+                    {currencies}
+                  </option>
+                ))}
             </select>
           </label>
 
@@ -188,6 +208,8 @@ class Form extends Component {
 
 const mapStateToProps = (state) => ({
   filteredCoin: state.wallet.filter,
+  sumExpenses: state.wallet.sumExpenses,
+  // expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
