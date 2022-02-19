@@ -3,32 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleSumExpenses = this.handleSumExpenses.bind(this);
-
-    this.state = {
-      totalExpenses: 0,
-    };
   }
 
   handleSumExpenses() {
     const { expenses } = this.props;
 
-    const total = expenses.reduce((acc, expense) => (
+    return expenses.reduce((acc, expense) => (
       acc + expense.value * expense.exchangeRates[expense.currency].ask
     ), 0);
-
-    this.setState({
-      totalExpenses: total,
-    });
   }
 
   render() {
     const { userEmail, dataTest } = this.props;
-    const { totalExpenses } = this.state;
-
     return (
       <header className="header">
         <span data-testid={ dataTest }>{userEmail}</span>
@@ -37,7 +27,7 @@ class Header extends Component {
         >
           Despesa Total:
           {' '}
-          {parseFloat(totalExpenses).toFixed(2)}
+          {(this.handleSumExpenses()).toFixed(2)}
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </header>

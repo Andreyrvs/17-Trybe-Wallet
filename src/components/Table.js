@@ -25,7 +25,9 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     // expenses.map(({ id, currency, description, method, tag, value }) => console.log({ currency }));
-    console.log(expenses);
+    // console.log(expenses);
+    // expenses.map(({ currency, exchangeRates }) => Object.keys(exchangeRates)
+    //   .filter((curr) => console.log(curr === currency && exchangeRates[currency].name)));
     return (
       <table>
         <thead>
@@ -42,16 +44,29 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.map(({ id, currency, description, method, tag, value }) => (
+          { expenses.map(({
+            id,
+            currency,
+            description,
+            method,
+            tag,
+            value,
+            exchangeRates,
+          }) => (
             <tr key={ id }>
               <td>{description}</td>
               <td>{tag}</td>
               <td>{method}</td>
               <td>{parseFloat(value).toFixed(2)}</td>
-              <td>{currency}</td>
-              <td>Cambio</td>
-              <td>valor Convertido</td>
-              <td>BRL</td>
+              <td>
+                {(exchangeRates[currency].name).split('/')[0]}
+              </td>
+              <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
+              <td>
+                {(parseFloat(value) * parseFloat(exchangeRates[currency].ask))
+                  .toFixed(2)}
+              </td>
+              <td>Real</td>
               <td>
                 <Button>Editar</Button>
                 <Button>Excluir</Button>
