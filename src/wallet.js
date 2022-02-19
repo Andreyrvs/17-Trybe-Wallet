@@ -5,7 +5,6 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   filter: [],
-  sumExpenses: [0],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -15,7 +14,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, action.payload.expenses],
       filter: action.payload.filter,
-      sumExpenses: [...state.sumExpenses, action.payload.sumExpenses],
     };
   default:
     return state;

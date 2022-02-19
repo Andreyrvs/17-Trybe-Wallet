@@ -208,8 +208,6 @@ class Form extends Component {
 
 const mapStateToProps = (state) => ({
   filteredCoin: state.wallet.filter,
-  sumExpenses: state.wallet.sumExpenses,
-  // expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

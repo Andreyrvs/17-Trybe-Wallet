@@ -38,6 +38,6 @@ select {
   margin-bottom: 1rem;
 }
 
-table, tr, th {
+th, td {
   border: 1px  solid var(--main-text-color);
 }
