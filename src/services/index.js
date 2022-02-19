@@ -9,8 +9,5 @@ const fetchAPI = async () => {
     console.log(error);
   }
 };
-// console.log(
-//   fetchAPI(),
-// );
 
 export default fetchAPI;

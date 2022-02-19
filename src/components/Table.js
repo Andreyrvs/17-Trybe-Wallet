@@ -4,30 +4,9 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 
 class Table extends Component {
-  // constructor() {
-  //   super();
-
-  //   this.state = {
-  //     expense: '',
-  //   };
-  // }
-
-  // handleExpense = () => {
-  //   const { expenses } = this.props;
-
-  //   const el =
-
-  //   this.setState({
-  //     expense: el,
-  //   });
-  // }
-
   render() {
     const { expenses } = this.props;
-    // expenses.map(({ id, currency, description, method, tag, value }) => console.log({ currency }));
-    // console.log(expenses);
-    // expenses.map(({ currency, exchangeRates }) => Object.keys(exchangeRates)
-    //   .filter((curr) => console.log(curr === currency && exchangeRates[currency].name)));
+
     return (
       <table>
         <thead>
@@ -85,14 +64,14 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
-//   expensesForm: PropTypes.shape({
-//     id: PropTypes.number,
-//     value: PropTypes.number,
-  description: PropTypes.string,
-//     currency: PropTypes.string,
-//     method: PropTypes.string,
-//     tag: PropTypes.string,
-//   }),
+  expenses: PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.number,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+  }),
 }.isRequire;
 
 export default connect(mapStateToProps)(Table);
