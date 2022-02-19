@@ -119,17 +119,6 @@ class Form extends Component {
             {' '}
           </Input>
 
-          <Input
-            dataTest="description-input"
-            elementId="input-description"
-            onInputChange={ this.handleChange }
-            name="description"
-            value={ description }
-          >
-            Descrição:
-            {' '}
-          </Input>
-
           <label htmlFor="select-currency">
             Moeda:
             {' '}
@@ -192,6 +181,17 @@ class Form extends Component {
               ))}
             </select>
           </label>
+
+          <Input
+            dataTest="description-input"
+            elementId="input-description"
+            onInputChange={ this.handleChange }
+            name="description"
+            value={ description }
+          >
+            Descrição:
+            {' '}
+          </Input>
 
           <Button
             btnType="submit"
