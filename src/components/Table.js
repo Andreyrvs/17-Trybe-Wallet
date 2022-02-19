@@ -47,7 +47,7 @@ class Table extends Component {
               <td>{description}</td>
               <td>{tag}</td>
               <td>{method}</td>
-              <td>{value}</td>
+              <td>{parseFloat(value).toFixed(2)}</td>
               <td>{currency}</td>
               <td>Cambio</td>
               <td>valor Convertido</td>

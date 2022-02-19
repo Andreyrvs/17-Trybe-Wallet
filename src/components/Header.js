@@ -7,18 +7,27 @@ class Header extends Component {
     super();
 
     this.handleSumExpenses = this.handleSumExpenses.bind(this);
+
+    this.state = {
+      totalExpenses: 0,
+    };
   }
 
   handleSumExpenses() {
     const { expenses } = this.props;
 
-    return expenses.reduce((acc, expense) => (
+    const total = expenses.reduce((acc, expense) => (
       acc + expense.value * expense.exchangeRates[expense.currency].ask
     ), 0);
+
+    this.setState({
+      totalExpenses: total,
+    });
   }
 
   render() {
     const { userEmail, dataTest } = this.props;
+    const { totalExpenses } = this.state;
 
     return (
       <header className="header">
@@ -28,7 +37,7 @@ class Header extends Component {
         >
           Despesa Total:
           {' '}
-          {this.handleSumExpenses()}
+          {parseFloat(totalExpenses).toFixed(2)}
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </header>
