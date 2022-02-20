@@ -75,6 +75,7 @@ class Form extends Component {
     this.setState((prevState) => ({
       id: prevState.id + 1,
       value: 0,
+      description: '',
     }));
 
     const exchangeRates = await fetchAPI();

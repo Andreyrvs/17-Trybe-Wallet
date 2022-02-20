@@ -2,11 +2,48 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import { userExpenses } from '../actions';
 
 class Table extends Component {
-  render() {
-    const { expenses } = this.props;
+  constructor(props) {
+    super(props);
 
+    this.handleClick = this.handleClick.bind(this);
+
+    this.state = {
+      expense: [],
+    };
+  }
+
+  handleClick(id) {
+    const { expenses, userExpense } = this.props;
+
+    const excludeExpense = expenses.filter((expense) => expense.id !== id);
+    userExpense({
+      expenses: excludeExpense,
+    });
+
+    console.log(expenses);
+    console.log(excludeExpense);
+  }
+
+  // handleClick(id) {
+  //   const { expenses } = this.props;
+  //   this.setState({
+  //     expense: expenses,
+  //   });
+  //   const excludeExpense = expenses.filter((expense) => expense.id !== id);
+  //   this.setState({
+  //     expense: excludeExpense,
+  //   });
+
+  //   console.log(expenses);
+  //   console.log(excludeExpense);
+  // }
+
+  render() {
+    const { expense } = this.state;
+    const { expenses } = this.props;
     return (
       <table>
         <thead>
@@ -48,7 +85,14 @@ class Table extends Component {
               <td>Real</td>
               <td>
                 <Button>Editar</Button>
-                <Button>Excluir</Button>
+                <Button
+                  dataTest="delete-btn"
+                  type="button"
+                  elementId={ id }
+                  handleClick={ () => this.handleClick(id) }
+                >
+                  Excluir
+                </Button>
               </td>
             </tr>
           )) }
@@ -63,6 +107,10 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  userExpense: (state) => dispatch(userExpenses(state)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.shape({
     id: PropTypes.number,
@@ -74,4 +122,4 @@ Table.propTypes = {
   }),
 }.isRequire;
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
