@@ -9,40 +9,24 @@ class Table extends Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-
-    this.state = {
-      expense: [],
-    };
   }
 
   handleClick(id) {
     const { expenses, userExpense } = this.props;
-
     const excludeExpense = expenses.filter((expense) => expense.id !== id);
-    userExpense({
-      expenses: excludeExpense,
-    });
 
-    console.log(expenses);
-    console.log(excludeExpense);
+    const newExpenses = excludeExpense.reduce((target, key, index) => {
+      target[index] = key;
+      return target;
+    }, {});
+    console.log(newExpenses);
+    userExpense({
+      expenses: newExpenses,
+    });
   }
 
-  // handleClick(id) {
-  //   const { expenses } = this.props;
-  //   this.setState({
-  //     expense: expenses,
-  //   });
-  //   const excludeExpense = expenses.filter((expense) => expense.id !== id);
-  //   this.setState({
-  //     expense: excludeExpense,
-  //   });
-
-  //   console.log(expenses);
-  //   console.log(excludeExpense);
-  // }
-
   render() {
-    const { expense } = this.state;
+    // const { expense } = this.state;
     const { expenses } = this.props;
     return (
       <table>
