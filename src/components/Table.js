@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import { userExpenses } from '../actions';
+import { deleteUserExpense } from '../actions';
 
 class Table extends Component {
   constructor(props) {
@@ -12,19 +12,11 @@ class Table extends Component {
   }
 
   handleClick(id) {
-    console.log(id);
-    const { expenses, userExpense } = this.props;
+    const { expenses, deleteUserExpenses } = this.props;
     const excludeExpense = expenses.filter((expense) => expense.id !== id);
 
-    // const newExpenses = excludeExpense.reduce((target, key, index) => {
-    //   target[index] = key;
-    //   return target;
-    // }, {});
-    const newExpenses = { ...excludeExpense };
-
-    console.log(newExpenses);
-    userExpense({
-      expenses: newExpenses,
+    deleteUserExpenses({
+      expenses: excludeExpense,
     });
   }
 
@@ -95,7 +87,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  userExpense: (state) => dispatch(userExpenses(state)),
+  deleteUserExpenses: (state) => dispatch(deleteUserExpense(state)),
 });
 
 Table.propTypes = {
