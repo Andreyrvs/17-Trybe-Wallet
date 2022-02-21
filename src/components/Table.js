@@ -12,13 +12,16 @@ class Table extends Component {
   }
 
   handleClick(id) {
+    console.log(id);
     const { expenses, userExpense } = this.props;
     const excludeExpense = expenses.filter((expense) => expense.id !== id);
 
-    const newExpenses = excludeExpense.reduce((target, key, index) => {
-      target[index] = key;
-      return target;
-    }, {});
+    // const newExpenses = excludeExpense.reduce((target, key, index) => {
+    //   target[index] = key;
+    //   return target;
+    // }, {});
+    const newExpenses = { ...excludeExpense };
+
     console.log(newExpenses);
     userExpense({
       expenses: newExpenses,
