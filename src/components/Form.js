@@ -105,9 +105,13 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag, coin } = this.state;
-
+    const { handleEditForm } = this.props;
+    // console.log(handleEditForm);
     return (
-      <form id="form-expenses" onSubmit={ (event) => this.handleExpenses(event) }>
+      <div>
+        {
+          !handleEditForm
+      && <form id="form-expenses" onSubmit={ (event) => this.handleExpenses(event) }>
         <fieldset>
           <Input
             dataTest="value-input"
@@ -203,12 +207,15 @@ class Form extends Component {
 
         </fieldset>
       </form>
+        }
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   filteredCoin: state.wallet.filter,
+  handleEditForm: state.wallet.handleEditForm,
 });
 
 const mapDispatchToProps = (dispatch) => ({
