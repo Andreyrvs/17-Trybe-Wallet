@@ -51,18 +51,6 @@ class Form extends Component {
     });
   }
 
-  // handleDropdown(event) {
-  //   this.setState({ currency: event });
-  // }
-
-  // handleMethod(event) {
-  //   this.setState({ method: event });
-  // }
-
-  // handleTag(event) {
-  //   this.setState({ tag: event });
-  // }
-
   async handleExpenses(event) {
     event.preventDefault(event);
     const { expensesForm } = this.props;
@@ -202,7 +190,7 @@ class Form extends Component {
           </Button>
 
         </fieldset>
-         </form>
+      </form>
         }
       </div>
     );
