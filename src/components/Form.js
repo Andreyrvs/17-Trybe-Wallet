@@ -93,105 +93,108 @@ class Form extends Component {
     // console.log(handleEditForm);
     return (
       <div>
-        {
-          !handleEditForm
-      && <form id="form-expenses" onSubmit={ (event) => this.handleExpenses(event) }>
-        <fieldset>
-          <Input
-            dataTest="value-input"
-            elementId="input-value"
-            onInputChange={ this.handleChange }
-            name="value"
-            value={ value }
+        {!handleEditForm
+        && (
+          <form
+            id="form-expenses"
+            onSubmit={ (event) => this.handleExpenses(event) }
           >
-            Valor:
-            {' '}
-          </Input>
+            <fieldset>
+              <Input
+                dataTest="value-input"
+                elementId="input-value"
+                onInputChange={ this.handleChange }
+                name="value"
+                value={ value }
+              >
+                Valor:
+                {' '}
+              </Input>
 
-          <label htmlFor="select-currency">
-            Moeda:
-            {' '}
-            <select
-              data-testid="currency-input"
-              id="select-currency"
-              onChange={ this.handleChange }
-              name="currency"
-              value={ currency }
-            >
-              { coin.length > 0
+              <label htmlFor="select-currency">
+                Moeda:
+                {' '}
+                <select
+                  data-testid="currency-input"
+                  id="select-currency"
+                  onChange={ this.handleChange }
+                  name="currency"
+                  value={ currency }
+                >
+                  { coin.length > 0
                 && coin.map((currencies) => (
                   <option key={ currencies } data-testid={ currencies }>
                     {currencies}
                   </option>
                 ))}
-            </select>
-          </label>
+                </select>
+              </label>
 
-          <label htmlFor="input-method">
-            Método de pegamento:
-            {' '}
-            <select
-              data-testid="method-input"
-              id="input-method"
-              name="method"
-              value={ method }
-              onChange={ this.handleChange }
-            >
-              {METHOD_LIST.map((methods) => (
-                <option
-                  key={ methods.id }
-                  value={ methods.name }
+              <label htmlFor="input-method">
+                Método de pegamento:
+                {' '}
+                <select
+                  data-testid="method-input"
+                  id="input-method"
+                  name="method"
+                  value={ method }
+                  onChange={ this.handleChange }
                 >
-                  {methods.name}
+                  {METHOD_LIST.map((methods) => (
+                    <option
+                      key={ methods.id }
+                      value={ methods.name }
+                    >
+                      {methods.name}
 
-                </option>
-              ))}
-            </select>
-          </label>
+                    </option>
+                  ))}
+                </select>
+              </label>
 
-          <label htmlFor="input-tag">
-            Tag:
-            {' '}
-            <select
-              data-testid="tag-input"
-              id="input-tag"
-              onChange={ this.handleChange }
-              value={ tag }
-              name="tag"
-            >
-              {TAG_LIST.map((tags) => (
-                <option
-                  key={ tags.id }
-                  value={ tags.name }
+              <label htmlFor="input-tag">
+                Tag:
+                {' '}
+                <select
+                  data-testid="tag-input"
+                  id="input-tag"
+                  onChange={ this.handleChange }
+                  value={ tag }
+                  name="tag"
                 >
-                  {tags.name}
+                  {TAG_LIST.map((tags) => (
+                    <option
+                      key={ tags.id }
+                      value={ tags.name }
+                    >
+                      {tags.name}
 
-                </option>
-              ))}
-            </select>
-          </label>
+                    </option>
+                  ))}
+                </select>
+              </label>
 
-          <Input
-            dataTest="description-input"
-            elementId="input-description"
-            onInputChange={ this.handleChange }
-            name="description"
-            value={ description }
-          >
-            Descrição:
-            {' '}
-          </Input>
+              <Input
+                dataTest="description-input"
+                elementId="input-description"
+                onInputChange={ this.handleChange }
+                name="description"
+                value={ description }
+              >
+                Descrição:
+                {' '}
+              </Input>
 
-          <Button
-            btnType="submit"
-            elementId="add-expenses"
-          >
-            Adicionar despesa
-          </Button>
+              <Button
+                btnType="submit"
+                elementId="add-expenses"
+              >
+                Adicionar despesa
+              </Button>
 
-        </fieldset>
-      </form>
-        }
+            </fieldset>
+          </form>
+        )}
       </div>
     );
   }
