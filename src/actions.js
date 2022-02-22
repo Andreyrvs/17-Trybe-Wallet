@@ -4,7 +4,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const USER_EXPENSES = 'USER_EXPENSES';
 export const DELETE_USER_EXPENSE = 'DELETE_USER_EXPENSE';
 export const EDIT_USER_EXPENSE = 'EDIT_USER_EXPENSE';
-export const SAVE_EDIT_EXPENSES = 'SAVE_EDIT_EXPENSES';
+export const CHANGE_FORMS = 'CHANGE_FORMS';
 export function userEmail(payload) {
   return { type: USER_EMAIL, payload };
 }
@@ -17,12 +17,12 @@ export function deleteUserExpense(payload) {
   return { type: DELETE_USER_EXPENSE, payload };
 }
 
-export function editUserExpense(payload) {
+export function editUserExpenses(payload) {
   return { type: EDIT_USER_EXPENSE, payload };
 }
 
-export function saveEditExpenses(payload) {
-  return { type: SAVE_EDIT_EXPENSES, payload };
+export function changeForms(payload) {
+  return { type: CHANGE_FORMS, payload };
 }
 
 export function expensesThunk() {

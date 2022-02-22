@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { saveEditExpenses, editUserExpense } from '../actions';
+import { changeForms, editUserExpenses } from '../actions';
 import Input from './Input';
 import Button from './Button';
 import fetchAPI from '../services';
@@ -64,7 +64,7 @@ class EditForm extends Component {
 
   handleEdit(event) {
     event.preventDefault();
-    const { expenses, saveEditExpense, editUserExpense } = this.props;
+    const { expenses, changeForm, editUserExpense } = this.props;
     const {
       id,
       value,
@@ -83,8 +83,8 @@ class EditForm extends Component {
       currency,
       method,
       tag };
-    // editUserExpense(true);
-    saveEditExpense(updatedExpenses);
+    changeForm({ handleEditForm: false });
+    editUserExpense(updatedExpenses);
   }
 
   async handleCurrency() {
@@ -218,8 +218,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  editUserExpenses: (state) => dispatch(editUserExpense(state)),
-  saveEditExpense: (state) => dispatch(saveEditExpenses(state)),
+  editUserExpense: (state) => dispatch(editUserExpenses(state)),
+  changeForm: (state) => dispatch(changeForms(state)),
+  // userExpense: (state) => dispatch(userExpenses(state)),
 });
 
 EditForm.propTypes = {

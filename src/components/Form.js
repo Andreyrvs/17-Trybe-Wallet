@@ -26,11 +26,7 @@ class Form extends Component {
 
     this.handleExpenses = this.handleExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleMethod = this.handleMethod.bind(this);
-    this.handleTag = this.handleTag.bind(this);
-    // this.handleSumExpenses = this.handleSumExpenses.bind(this);
     this.handleCurrency = this.handleCurrency.bind(this);
-    this.handleDropdown = this.handleDropdown.bind(this);
 
     this.state = {
       id: 0,
@@ -48,24 +44,24 @@ class Form extends Component {
   }
 
   handleChange({ target }) {
-    const { name, value, type, checked } = target;
+    const { name, value } = target;
 
     this.setState({
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: value,
     });
   }
 
-  handleDropdown(event) {
-    this.setState({ currency: event });
-  }
+  // handleDropdown(event) {
+  //   this.setState({ currency: event });
+  // }
 
-  handleMethod(event) {
-    this.setState({ method: event });
-  }
+  // handleMethod(event) {
+  //   this.setState({ method: event });
+  // }
 
-  handleTag(event) {
-    this.setState({ tag: event });
-  }
+  // handleTag(event) {
+  //   this.setState({ tag: event });
+  // }
 
   async handleExpenses(event) {
     event.preventDefault(event);
@@ -130,7 +126,7 @@ class Form extends Component {
             <select
               data-testid="currency-input"
               id="select-currency"
-              onChange={ (event) => this.handleDropdown(event.target.value) }
+              onChange={ this.handleChange }
               name="currency"
               value={ currency }
             >
@@ -151,7 +147,7 @@ class Form extends Component {
               id="input-method"
               name="method"
               value={ method }
-              onChange={ (event) => this.handleMethod(event.target.value) }
+              onChange={ this.handleChange }
             >
               {METHOD_LIST.map((methods) => (
                 <option
@@ -171,7 +167,7 @@ class Form extends Component {
             <select
               data-testid="tag-input"
               id="input-tag"
-              onChange={ (event) => this.handleTag(event.target.value) }
+              onChange={ this.handleChange }
               value={ tag }
               name="tag"
             >
@@ -206,7 +202,7 @@ class Form extends Component {
           </Button>
 
         </fieldset>
-      </form>
+         </form>
         }
       </div>
     );

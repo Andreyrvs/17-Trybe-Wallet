@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import { deleteUserExpense, editUserExpense } from '../actions';
+import { deleteUserExpense, changeForms } from '../actions';
 // import Form from './Form';
 import EditForm from './EditForm';
 
@@ -29,7 +29,7 @@ class Table extends Component {
   }
 
   handleEditBtn(id) {
-    const { expenses, editUserExpenses } = this.props;
+    const { expenses, changeForm } = this.props;
 
     const filterArray = expenses.find((expense) => expense.id === id);
 
@@ -37,7 +37,7 @@ class Table extends Component {
       formData: filterArray,
     });
 
-    editUserExpenses({
+    changeForm({
       handleEditForm: true,
     });
   }
@@ -122,7 +122,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteUserExpenses: (state) => dispatch(deleteUserExpense(state)),
-  editUserExpenses: (state) => dispatch(editUserExpense(state)),
+  changeForm: (state) => dispatch(changeForms(state)),
 });
 
 Table.propTypes = {
