@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BsTrash } from 'react-icons/bs';
+import { AiOutlineEdit } from 'react-icons/ai';
 import Button from './Button';
 import { deleteUserExpense, changeForms } from '../actions';
-// import Form from './Form';
 import EditForm from './EditForm';
 
 class Table extends Component {
@@ -46,13 +47,13 @@ class Table extends Component {
     const { expenses, handleEditForm } = this.props;
     const { formData } = this.state;
     return (
-      <>
+      <div className="table-responsive-md">
         { handleEditForm
         && <EditForm formData={ formData } />}
 
-        <table>
+        <table className="table table-dark table-striped">
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>Descrição</th>
               <th>Tag</th>
               <th>Método de pagamento</th>
@@ -90,18 +91,20 @@ class Table extends Component {
                 <td>Real</td>
                 <td>
                   <Button
+                    buttonBS="btn btn-light m-1"
                     dataTest="edit-btn"
                     handleClick={ () => { this.handleEditBtn(id); } }
                   >
-                    Editar
+                    <AiOutlineEdit style={ { fontSize: '20px' } } />
                   </Button>
                   <Button
+                    buttonBS="btn btn-light m1"
                     dataTest="delete-btn"
                     type="button"
                     elementId={ id }
                     handleClick={ () => this.handleClick(id) }
                   >
-                    Excluir
+                    <BsTrash style={ { fontSize: '19px' } } />
                   </Button>
                 </td>
               </tr>
@@ -109,7 +112,7 @@ class Table extends Component {
           </tbody>
 
         </table>
-      </>
+      </div>
 
     );
   }

@@ -12,9 +12,10 @@ class Input extends Component {
       children,
       inputType,
       isCheck,
+      classBS,
     } = this.props;
     return (
-      <label htmlFor={ elementId }>
+      <label htmlFor={ elementId } className="form-label m-1">
         { children }
         <input
           id={ elementId }
@@ -25,6 +26,7 @@ class Input extends Component {
           type={ inputType }
           checked={ isCheck }
           autoComplete="off"
+          className={ classBS }
         />
       </label>
     );

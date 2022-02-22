@@ -1,11 +1,11 @@
-:root {
+/* :root {
 
   --main-bg-color: #22272e;
 
   --main-text-color: #adbac7;
 
   --input-bg-color: #2d333b;
-}
+} */
 
 body {
   background-color: var(--main-bg-color);
@@ -22,7 +22,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+/* 
 input {
   background-color: var(--input-bg-color);
   color: var(--main-text-color);
@@ -40,4 +40,4 @@ select {
 
 th, td {
   border: 1px  solid var(--main-text-color);
-}
+} */

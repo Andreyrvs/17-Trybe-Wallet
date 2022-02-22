@@ -65,6 +65,7 @@ class Login extends React.Component {
         <form className="login__form" onSubmit={ (event) => this.hadleSubmit(event) }>
           <fieldset className="login__form-fieldset">
             <Input
+              classBS="form-control"
               elementId="email"
               dataTest="email-input"
               onInputChange={ this.handleChange }
@@ -75,6 +76,7 @@ class Login extends React.Component {
               Email
             </Input>
             <Input
+              classBS="form-control"
               elementId="senha"
               dataTest="password-input"
               onInputChange={ this.handleChange }
@@ -85,6 +87,7 @@ class Login extends React.Component {
               Senha
             </Input>
             <Button
+              buttonBS={ btnDisable ? 'btn btn-outline-primary' : 'btn btn-primary' }
               elementId="button"
               btnType="submit"
               isDisable={ btnDisable }

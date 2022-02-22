@@ -20,7 +20,7 @@ class Header extends Component {
   render() {
     const { userEmail, dataTest } = this.props;
     return (
-      <header className="header">
+      <header className="header m-2">
         <span data-testid={ dataTest }>{userEmail}</span>
         <span
           data-testid="total-field"

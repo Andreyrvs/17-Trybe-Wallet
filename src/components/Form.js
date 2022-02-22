@@ -96,11 +96,13 @@ class Form extends Component {
         {!handleEditForm
         && (
           <form
+            className="m-2"
             id="form-expenses"
             onSubmit={ (event) => this.handleExpenses(event) }
           >
             <fieldset>
               <Input
+                classBS="form-control"
                 dataTest="value-input"
                 elementId="input-value"
                 onInputChange={ this.handleChange }
@@ -111,10 +113,11 @@ class Form extends Component {
                 {' '}
               </Input>
 
-              <label htmlFor="select-currency">
+              <label htmlFor="select-currency" className="m-1">
                 Moeda:
                 {' '}
                 <select
+                  className="form-select"
                   data-testid="currency-input"
                   id="select-currency"
                   onChange={ this.handleChange }
@@ -130,10 +133,11 @@ class Form extends Component {
                 </select>
               </label>
 
-              <label htmlFor="input-method">
+              <label htmlFor="input-method" className="m-1">
                 Método de pegamento:
                 {' '}
                 <select
+                  className="form-select"
                   data-testid="method-input"
                   id="input-method"
                   name="method"
@@ -152,10 +156,11 @@ class Form extends Component {
                 </select>
               </label>
 
-              <label htmlFor="input-tag">
+              <label htmlFor="input-tag" className="m-1">
                 Tag:
                 {' '}
                 <select
+                  className="form-select"
                   data-testid="tag-input"
                   id="input-tag"
                   onChange={ this.handleChange }
@@ -175,6 +180,7 @@ class Form extends Component {
               </label>
 
               <Input
+                classBS="form-control"
                 dataTest="description-input"
                 elementId="input-description"
                 onInputChange={ this.handleChange }
@@ -186,6 +192,7 @@ class Form extends Component {
               </Input>
 
               <Button
+                buttonBS="btn btn-primary m-1"
                 btnType="submit"
                 elementId="add-expenses"
               >
