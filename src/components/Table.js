@@ -45,6 +45,7 @@ class Table extends Component {
 
   render() {
     const { expenses, handleEditForm } = this.props;
+    console.log(expenses);
     const { formData } = this.state;
     return (
       <div className="table-responsive-md">
