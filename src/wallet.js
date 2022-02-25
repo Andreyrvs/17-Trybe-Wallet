@@ -4,6 +4,7 @@ import {
   DELETE_USER_EXPENSE,
   EDIT_USER_EXPENSE,
   CHANGE_FORMS,
+  CURRENCIES_ARRAY,
 } from './actions';
 
 const INITIAL_STATE = {
@@ -33,10 +34,16 @@ const wallet = (state = INITIAL_STATE, action) => {
       editForm: action.payload.editForm,
     };
   case EDIT_USER_EXPENSE:
-    console.log('Action', action.payload);
+
     return {
       ...state,
-      expenses: [...action.payload.updatedExpenses],
+      expenses: [...action.payload],
+    };
+  case CURRENCIES_ARRAY:
+    console.log('Action currencies', action.payload);
+    return {
+      ...state,
+      currencies: action.payload,
     };
   default:
     return state;

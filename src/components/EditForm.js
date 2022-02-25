@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeForms, editUserExpenses, userExpenses } from '../actions';
+import { changeForms, editUserExpenses, userExpenses, currenciesArray } from '../actions';
 import Input from './Input';
 import Button from './Button';
 import fetchAPI from '../services';
@@ -22,6 +22,7 @@ class EditForm extends Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
       coin: '',
+      exchangeRates: [],
     };
   }
 
@@ -35,6 +36,7 @@ class EditForm extends Component {
 
     this.setState({
       id: formData.id,
+      exchangeRates: formData.exchangeRates,
       value: formData.value,
       description: formData.description,
       currency: formData.currency,
@@ -59,38 +61,17 @@ class EditForm extends Component {
 
     const p1 = expenses.filter((item) => Number(item.id) < Number(id));
     const p2 = expenses.filter((item) => Number(item.id) > Number(id));
-    console.log('p1', p1);
-    console.log('p2', p2);
-    // const {
-    //   id,
-    //   value,
-    //   description,
-    //   currency,
-    //   method,
-    //   tag,
-    // } = this.state;
+    // console.log('p1', p1);
+    // console.log('p2', p2);
 
-    // const editExpenses = expenses;
-
-    // editExpenses[id] = {
-    //   id,
-    //   value,
-    //   description,
-    //   currency,
-    //   method,
-    //   tag };
-
-    // const updatedExpenses = expenses.filter(
-    //   (item) => (item !== id && [item, editExpenses]),
-    // );
-
-    // editUserExpense({
-    //   updatedExpenses,
-    // });
+    const updatedExpenses = [...p1, this.state, ...p2];
+    // console.log(updatedExpenses);
+    editUserExpense(updatedExpenses);
     changeForm({ editForm: false });
   }
 
   async handleCurrency() {
+    const { currencie } = this.props;
     const responseAPI = await fetchAPI();
     const arrayCoin = Object.keys(responseAPI);
 
@@ -98,6 +79,8 @@ class EditForm extends Component {
     this.setState({
       coin: filteredCoin,
     });
+
+    currencie(filteredCoin);
   }
 
   render() {
@@ -225,6 +208,7 @@ const mapDispatchToProps = (dispatch) => ({
   editUserExpense: (state) => dispatch(editUserExpenses(state)),
   changeForm: (state) => dispatch(changeForms(state)),
   userExpense: (state) => dispatch(userExpenses(state)),
+  currencie: (state) => dispatch(currenciesArray(state)),
 });
 
 EditForm.propTypes = {

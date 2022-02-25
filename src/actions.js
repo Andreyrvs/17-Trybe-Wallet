@@ -5,6 +5,12 @@ export const USER_EXPENSES = 'USER_EXPENSES';
 export const DELETE_USER_EXPENSE = 'DELETE_USER_EXPENSE';
 export const EDIT_USER_EXPENSE = 'EDIT_USER_EXPENSE';
 export const CHANGE_FORMS = 'CHANGE_FORMS';
+export const CURRENCIES_ARRAY = 'CURRENCIES_ARRAY';
+
+export function currenciesArray(payload) {
+  return { type: CURRENCIES_ARRAY, payload };
+}
+
 export function userEmail(payload) {
   return { type: USER_EMAIL, payload };
 }
