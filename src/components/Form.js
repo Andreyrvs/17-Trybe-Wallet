@@ -76,11 +76,11 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag, coin } = this.state;
-    const { handleEditForm } = this.props;
-    // console.log(handleEditForm);
+    const { editForm } = this.props;
+
     return (
       <div>
-        {!handleEditForm
+        {!editForm
         && (
           <form
             className="m-2"
@@ -196,7 +196,7 @@ class Form extends Component {
 
 const mapStateToProps = (state) => ({
   filteredCoin: state.wallet.filter,
-  handleEditForm: state.wallet.handleEditForm,
+  editForm: state.wallet.editForm,
 });
 
 const mapDispatchToProps = (dispatch) => ({

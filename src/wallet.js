@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   filter: [],
-  handleEditForm: false,
+  editForm: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -30,12 +30,13 @@ const wallet = (state = INITIAL_STATE, action) => {
   case CHANGE_FORMS:
     return {
       ...state,
-      handleEditForm: action.payload.handleEditForm,
+      editForm: action.payload.editForm,
     };
   case EDIT_USER_EXPENSE:
+    console.log('Action', action.payload);
     return {
       ...state,
-      expenses: action.payload,
+      expenses: [...action.payload.updatedExpenses],
     };
   default:
     return state;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeForms, editUserExpenses } from '../actions';
+import { changeForms, editUserExpenses, userExpenses } from '../actions';
 import Input from './Input';
 import Button from './Button';
 import fetchAPI from '../services';
@@ -13,6 +13,7 @@ class EditForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+
     this.state = {
       id: 0,
       value: '',
@@ -31,8 +32,9 @@ class EditForm extends Component {
 
   updateState = () => {
     const { formData } = this.props;
-    // console.log(formData);
+
     this.setState({
+      id: formData.id,
       value: formData.value,
       description: formData.description,
       currency: formData.currency,
@@ -51,28 +53,41 @@ class EditForm extends Component {
 
   handleEdit(event) {
     event.preventDefault(event);
-    const { expenses, changeForm, editUserExpense } = this.props;
-    const {
-      id,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    } = this.state;
+    const { expenses, changeForm, editUserExpense, formData } = this.props;
 
-    const updatedExpenses = expenses;
+    const { id } = formData;
 
-    updatedExpenses[id] = {
-      id,
-      value,
-      description,
-      currency,
-      method,
-      tag };
+    const p1 = expenses.filter((item) => Number(item.id) < Number(id));
+    const p2 = expenses.filter((item) => Number(item.id) > Number(id));
+    console.log('p1', p1);
+    console.log('p2', p2);
+    // const {
+    //   id,
+    //   value,
+    //   description,
+    //   currency,
+    //   method,
+    //   tag,
+    // } = this.state;
 
-    editUserExpense(updatedExpenses);
-    changeForm({ handleEditForm: false });
+    // const editExpenses = expenses;
+
+    // editExpenses[id] = {
+    //   id,
+    //   value,
+    //   description,
+    //   currency,
+    //   method,
+    //   tag };
+
+    // const updatedExpenses = expenses.filter(
+    //   (item) => (item !== id && [item, editExpenses]),
+    // );
+
+    // editUserExpense({
+    //   updatedExpenses,
+    // });
+    changeForm({ editForm: false });
   }
 
   async handleCurrency() {
@@ -87,16 +102,16 @@ class EditForm extends Component {
 
   render() {
     const { value, description, currency, method, tag, coin } = this.state;
-    const { handleEditForm } = this.props;
+    const { editForm } = this.props;
 
     return (
       <div>
-        {handleEditForm
+        {editForm
         && (
           <form
             style={ { backgroundColor: ' green' } }
             id="form-expenses"
-            onSubmit={ this.handleEdit }
+            onSubmit={ (event) => this.handleEdit(event) }
           >
             <fieldset>
               <Input
@@ -201,14 +216,15 @@ class EditForm extends Component {
 
 const mapStateToProps = (state) => ({
   filteredCoin: state.wallet.filter,
-  handleEditForm: state.wallet.handleEditForm,
+  editForm: state.wallet.editForm,
   expenses: state.wallet.expenses,
+  filter: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   editUserExpense: (state) => dispatch(editUserExpenses(state)),
   changeForm: (state) => dispatch(changeForms(state)),
-  // userExpense: (state) => dispatch(userExpenses(state)),
+  userExpense: (state) => dispatch(userExpenses(state)),
 });
 
 EditForm.propTypes = {

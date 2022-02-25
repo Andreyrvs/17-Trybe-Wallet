@@ -11,7 +11,6 @@ class Header extends Component {
 
   handleSumExpenses() {
     const { expenses } = this.props;
-
     return expenses.reduce((acc, expense) => (
       acc + expense.value * expense.exchangeRates[expense.currency].ask
     ), 0);

@@ -15,7 +15,6 @@ class Table extends Component {
     this.handleEditBtn = this.handleEditBtn.bind(this);
 
     this.state = {
-      // isEditing: false,
       formData: {},
     };
   }
@@ -39,17 +38,16 @@ class Table extends Component {
     });
 
     changeForm({
-      handleEditForm: true,
+      editForm: true,
     });
   }
 
   render() {
-    const { expenses, handleEditForm } = this.props;
-    console.log(expenses);
+    const { expenses, editForm } = this.props;
     const { formData } = this.state;
     return (
       <div className="table-responsive-md">
-        { handleEditForm
+        { editForm
         && <EditForm formData={ formData } />}
 
         <table className="table table-dark table-striped">
@@ -121,7 +119,7 @@ class Table extends Component {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
-  handleEditForm: state.wallet.handleEditForm,
+  editForm: state.wallet.editForm,
 });
 
 const mapDispatchToProps = (dispatch) => ({
