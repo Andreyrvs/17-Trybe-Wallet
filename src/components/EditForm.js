@@ -55,10 +55,10 @@ class EditForm extends Component {
 
   handleEdit(event) {
     event.preventDefault(event);
-    const { expenses, changeForm, editUserExpense, formData } = this.props;
+    const { expenses, changeForm, editUserExpense } = this.props;
+    const { id, exchangeRates } = this.state;
 
-    const { id } = formData;
-
+    console.log(exchangeRates);
     const p1 = expenses.filter((item) => Number(item.id) < Number(id));
     const p2 = expenses.filter((item) => Number(item.id) > Number(id));
     // console.log('p1', p1);
