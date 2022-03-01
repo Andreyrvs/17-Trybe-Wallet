@@ -10,7 +10,7 @@ import {
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  editedExpenses: false,
+  isEditing: false,
   filter: [],
 };
 
@@ -35,7 +35,7 @@ function wallet(state = INITIAL_STATE, action) {
   case EDITED_EXPENSES:
     return {
       ...state,
-      editedExpenses: action.payload.editedExpenses,
+      isEditing: action.payload.isEditing,
     };
   case UPDATED_EXPENSES:
     return {

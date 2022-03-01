@@ -12,7 +12,7 @@ class Form extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.fromTableToForm = this.fromTableToForm.bind(this);
+    // this.fromTableToForm = this.fromTableToForm.bind(this);
     this.state = {
       id: 0,
       value: '',
@@ -27,19 +27,19 @@ class Form extends Component {
     this.handleCurrency();
   }
 
-  fromTableToForm() {
-    const { filtered, editedExpense } = this.props;
-    // console.log(filtered);
+  // fromTableToForm() {
+  //   const { filtered, editedExpense } = this.props;
+  //   // console.log(filtered);
 
-    this.setState({
-      id: filtered.id,
-      value: filtered.value,
-      description: filtered.description,
-      currency: filtered.currency,
-      method: filtered.method,
-      tag: filtered.tag,
-    });
-  }
+  //   this.setState({
+  //     id: filtered.id,
+  //     value: filtered.value,
+  //     description: filtered.description,
+  //     currency: filtered.currency,
+  //     method: filtered.method,
+  //     tag: filtered.tag,
+  //   });
+  // }
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -90,8 +90,8 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { selectCurrencies, editedExpense } = this.props;
-
+    const { selectCurrencies, isEditing } = this.props;
+    console.log('form', isEditing);
     return (
 
       <form onSubmit={ (event) => this.handleSubmit(event) }>
@@ -155,7 +155,7 @@ class Form extends Component {
           <option>Transporte</option>
           <option>Saúde</option>
         </Select>
-        {editedExpense
+        {isEditing
           ? (
             <Button type="submit">
               Adicionar despesa
@@ -173,7 +173,7 @@ class Form extends Component {
 const mapStateToProps = (state) => ({
   selectCurrencies: state.wallet.currencies,
   filtered: state.wallet.filter,
-  // editedExpense: state.wallet.editedExpenses,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
