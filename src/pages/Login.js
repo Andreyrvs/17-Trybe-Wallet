@@ -6,14 +6,18 @@ import Button from '../components/Button';
 import fetchAPI from '../services';
 import userEmail from '../actions';
 
+const PASSWORD_LIMIT = 6;
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
 
     this.state = {
       email: '',
+      isDisable: true,
+      password: '',
     };
   }
 
@@ -22,20 +26,37 @@ class Login extends React.Component {
 
     this.setState({
       [name]: value,
-    });
+    }, () => this.handleValidation());
   }
 
   handleSubmit(event) {
     event.preventDefault(event);
     const { email } = this.state;
-    const { usersEmail } = this.props;
+    const { usersEmail, history } = this.props;
 
     usersEmail({ email });
+    history.push('/carteira');
+
     fetchAPI();
   }
 
+  handleValidation() {
+    const { email, password } = this.state;
+    const regexEmail = /\w+@+\w+\.com/ig;
+    const validateEmail = regexEmail.test(email);
+    const validatePassword = password.length >= PASSWORD_LIMIT;
+
+    if (validateEmail && validatePassword) {
+      this.setState({
+        isDisable: false,
+      });
+    } else {
+      this.setState({ isDisable: true });
+    }
+  }
+
   render() {
-    const { email } = this.state;
+    const { email, isDisable, password } = this.state;
     return (
       <form onSubmit={ (event) => this.handleSubmit(event) }>
 
@@ -55,11 +76,15 @@ class Login extends React.Component {
           elementId="input-password"
           inputType="password"
           name="password"
+          value={ password }
+          onInputChange={ this.handleChange }
           autoComplete="off"
         />
 
         <Button
           type="submit"
+          elementId="btn-login"
+          isDisable={ isDisable }
         >
           Entrar
         </Button>
