@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Form from '../components/Form';
 
 class Wallet extends Component {
   constructor(props) {
@@ -21,17 +22,22 @@ class Wallet extends Component {
   render() {
     const { email } = this.props;
     return (
-      <header
-        data-testid="email-field"
-      >
-        <section>
-          <span>{email}</span>
-        </section>
-        <section>
-          <span data-testid="total-field">{this.handleTotalExpenses()}</span>
-          <span data-testid="header-currency-field">BRL</span>
-        </section>
-      </header>
+      <>
+        <header
+          data-testid="email-field"
+        >
+          <section>
+            <span>{email}</span>
+          </section>
+          <section>
+            <span data-testid="total-field">{this.handleTotalExpenses()}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </section>
+        </header>
+        <main>
+          <Form />
+        </main>
+      </>
     );
   }
 }
