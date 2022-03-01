@@ -14,7 +14,7 @@ class Button extends Component {
     } = this.props;
     return (
       <button
-        type={ btnType === 'button' ? 'button' : 'submit' }
+        type={ btnType === 'submit' ? 'submit' : 'button' }
         id={ elementId }
         data-testid={ dataTest }
         className={ bsClass }

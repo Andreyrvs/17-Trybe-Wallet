@@ -7,12 +7,11 @@ import Button from './Button';
 import { currencies, editedExpenses, expenses, updatedExpenses } from '../actions';
 import fetchAPI from '../services';
 
-const ALIMENTACAO = 'Alimentação';
 class Form extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAddExpense = this.handleAddExpense.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.state = {
       id: 0,
@@ -20,7 +19,7 @@ class Form extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: ALIMENTACAO,
+      tag: 'Alimentação',
       exchangeRates: [],
     };
   }
@@ -58,7 +57,7 @@ class Form extends Component {
     });
   }
 
-  async handleSubmit(event) {
+  async handleAddExpense(event) {
     event.preventDefault(event);
     const { id, value, description, currency, method, tag } = this.state;
     const { userExpenses } = this.props;
@@ -69,7 +68,8 @@ class Form extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: ALIMENTACAO,
+      tag: 'Alimentação',
+      // exchangeRates: [],
     }));
 
     const exchangeRates = await fetchAPI();
@@ -117,8 +117,9 @@ class Form extends Component {
       value: 0,
       description: '',
       currency: 'USD',
-      method: 'Dinheiro',
-      tag: ALIMENTACAO,
+      // method: 'Dinheiro',
+      // tag: 'Alimentação',
+      // exchangeRates: [],
     }));
   }
 
@@ -165,7 +166,6 @@ class Form extends Component {
               value={ `${moeda}` }
             >
               {moeda}
-
             </option>
           ))}
         </Select>
@@ -191,7 +191,7 @@ class Form extends Component {
           handleChange={ this.handleChange }
           inputValue={ tag }
         >
-          <option value={ ALIMENTACAO }>{ALIMENTACAO}</option>
+          <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
           <option value="Transporte">Transporte</option>
@@ -201,8 +201,8 @@ class Form extends Component {
         {!isEditing
           ? (
             <Button
-              handleClick={ (event) => this.handleSubmit(event) }
-              type="button"
+              handleClick={ (event) => this.handleAddExpense(event) }
+              type="submit"
               bsClass="btn btn-primary"
             >
               Adicionar despesa
@@ -210,7 +210,7 @@ class Form extends Component {
           ) : (
             <Button
               handleClick={ this.handleEdit }
-              type="button"
+              type="submit"
               bsClass="btn btn-primary"
             >
               Editar despesa
