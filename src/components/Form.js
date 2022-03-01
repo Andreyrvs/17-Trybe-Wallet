@@ -63,6 +63,10 @@ class Form extends Component {
     const { userCurrencies } = this.props;
     const exchangeRates = await fetchAPI();
 
+    // const ratesFiltered = exchangeRates.filter((rates) => (
+    //   rates
+    // ))
+
     userCurrencies({
       currencies: exchangeRates,
     });
@@ -103,7 +107,7 @@ class Form extends Component {
           inputValue={ currency }
         >
           {Object.keys(selectCurrencies).map((moeda) => (
-            <option key={ moeda }>{moeda}</option>
+            <option data-testid={ moeda } key={ moeda }>{moeda}</option>
           ))}
         </Select>
 
