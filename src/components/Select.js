@@ -1,43 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Input extends Component {
+class Select extends Component {
   render() {
     const {
       dataTest,
       elementId,
       labelName,
-      onInputChange,
-      name,
       value,
-      inputType,
-      autoComplete,
+      name,
+      onChange,
+      children,
     } = this.props;
     return (
       <label htmlFor={ elementId }>
         {labelName}
-        <input
-          autoComplete={ autoComplete }
+        <select
           data-testid={ dataTest }
           id={ elementId }
-          name={ name }
-          onChange={ onInputChange }
-          type={ inputType }
           value={ value }
-        />
+          name={ name }
+          onChange={ onChange }
+        >
+          {children}
+        </select>
       </label>
     );
   }
 }
 
-Input.propTypes = {
+Select.propTypes = {
   dataTest: PropTypes.string,
   elementId: PropTypes.string,
   labelName: PropTypes.string,
-  onInputChange: PropTypes.func,
-  name: PropTypes.string,
   value: PropTypes.string,
-  inputType: PropTypes.string,
+  name: PropTypes.string,
+
 }.isRequire;
 
-export default Input;
+export default Select;
