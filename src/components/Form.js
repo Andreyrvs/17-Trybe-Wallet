@@ -12,7 +12,6 @@ class Form extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.updateState = this.updateState.bind(this);
 
     this.state = {
       id: 0,
@@ -21,28 +20,28 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      exchangeRates: [],
+      // exchangeRates: [],
     };
   }
 
   componentDidMount() {
     this.handleCurrency();
+    // this.updateState();
   }
 
   updateState = () => {
-    const { formData, isEditing } = this.props;
+    const { formData } = this.props;
+
     console.log('formData', formData);
-    if (isEditing) {
-      this.setState({
-        id: formData.id,
-        value: formData.value,
-        description: formData.description,
-        currency: formData.currency,
-        method: formData.method,
-        tag: formData.tag,
-        exchangeRates: formData.exchangeRates,
-      });
-    }
+    this.setState({
+      id: formData.id,
+      value: formData.value,
+      description: formData.description,
+      currency: formData.currency,
+      method: formData.method,
+      tag: formData.tag,
+      // exchangeRates: formData.exchangeRates,
+    });
   }
 
   handleChange({ target }) {
@@ -95,6 +94,7 @@ class Form extends Component {
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { selectCurrencies, isEditing } = this.props;
+
     return (
 
       <form>
@@ -160,11 +160,19 @@ class Form extends Component {
         </Select>
         {isEditing
           ? (
-            <Button handleClick={ this.handleSubmit } type="button" bsClass="btn btn-primary">
+            <Button
+              handleClick={ this.handleSubmit }
+              type="button"
+              bsClass="btn btn-primary"
+            >
               Adicionar despesa
             </Button>
           ) : (
-            <Button handleClick={ this.updateState } type="button" bsClass="btn btn-primary">
+            <Button
+              handleClick={ () => {} }
+              type="button"
+              bsClass="btn btn-primary"
+            >
               Editar despesa
             </Button>
           )}

@@ -6,8 +6,8 @@ import {
   deleteExpenses,
   editedExpenses,
   expenses,
-  filter,
-  updatedExpenses,
+  // filter,
+  // updatedExpenses,
 } from '../actions';
 import Form from './Form';
 
@@ -50,7 +50,6 @@ class ExpenseTable extends Component {
     const { expensesState, editedExpense } = this.props;
 
     const filteredExpense = expensesState.find((expense) => expense.id === itemId);
-
     this.setState({
       formData: filteredExpense,
     });
@@ -61,14 +60,14 @@ class ExpenseTable extends Component {
 
   render() {
     const { formData } = this.state;
+    console.log(formData);
     const { expensesState, isEditing } = this.props;
-    console.log('table', formData);
     return (
       <>
         <section>
           {isEditing
-            ? (<Form />)
-            : (<Form isEditing={ !isEditing } formData={ formData } />)}
+            ? (<Form formData={ formData } />)
+            : (<Form isEditing={ !isEditing } />)}
         </section>
 
         <table className="table table-striped table-dark">
@@ -102,7 +101,7 @@ class ExpenseTable extends Component {
                   <Button
                     type="button"
                     elementId={ value }
-                    bsClass="btn btn-light m-1 btn-sm"
+                    bsClass="btn btn-warning m-1 btn-sm"
                     dataTest="edit-btn"
                     handleClick={ () => this.handleEditButton(id) }
                   >
@@ -111,7 +110,7 @@ class ExpenseTable extends Component {
                   <Button
                     type="button"
                     elementId={ id }
-                    bsClass="btn btn-light m-1 btn-sm"
+                    bsClass="btn btn-danger m-1 btn-sm"
                     dataTest="delete-btn"
                     handleClick={ () => this.handleDeleteExpense(id) }
                   >
@@ -137,8 +136,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   userExpense: (state) => dispatch(expenses(state)),
   deleteExpense: (state) => dispatch(deleteExpenses(state)),
-  updatedExpense: (state) => dispatch(updatedExpenses(state)),
-  filtered: (state) => dispatch(filter(state)),
+  // updatedExpense: (state) => dispatch(updatedExpenses(state)),
+  // filtered: (state) => dispatch(filter(state)),
   editedExpense: (state) => dispatch(editedExpenses(state)),
 });
 
