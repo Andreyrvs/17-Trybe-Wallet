@@ -1,7 +1,9 @@
 import React from 'react';
+import fetchAPI from '../services';
 
 class Login extends React.Component {
   render() {
+    fetchAPI();
     return (
       <form onSubmit={ () => {} }>
 
@@ -10,12 +12,19 @@ class Login extends React.Component {
             data-testid="email-input"
             id="input-email"
           />
-          <button
-            type="submit"
-          >
-            Entrar
-          </button>
         </label>
+
+        <label htmlFor="input-password">
+          <input
+            data-testid="password-input"
+            id="input-password"
+          />
+        </label>
+        <button
+          type="submit"
+        >
+          Entrar
+        </button>
       </form>
     );
   }
