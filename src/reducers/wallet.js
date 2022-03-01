@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case EXPENSES:
+    console.log('action', action.payload);
     return {
       ...state,
       expenses: [...state.expenses, action.payload.expenses],
