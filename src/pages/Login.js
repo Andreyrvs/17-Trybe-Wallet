@@ -1,4 +1,5 @@
 import React from 'react';
+import Input from '../components/Input';
 import fetchAPI from '../services';
 
 class Login extends React.Component {
@@ -7,19 +8,18 @@ class Login extends React.Component {
     return (
       <form onSubmit={ () => {} }>
 
-        <label htmlFor="input-email">
-          <input
-            data-testid="email-input"
-            id="input-email"
-          />
-        </label>
+        <Input
+          labelName="Email"
+          dataTest="email-input"
+          elementId="input-email"
+        />
 
-        <label htmlFor="input-password">
-          <input
-            data-testid="password-input"
-            id="input-password"
-          />
-        </label>
+        <Input
+          labelName="Senha"
+          dataTest="password-input"
+          elementId="input-password"
+        />
+
         <button
           type="submit"
         >
