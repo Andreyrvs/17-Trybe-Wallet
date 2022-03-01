@@ -7,6 +7,7 @@ import Button from './Button';
 import { currencies, editedExpenses, expenses, updatedExpenses } from '../actions';
 import fetchAPI from '../services';
 
+const ALIMENTACAO = 'Alimentação';
 class Form extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,7 @@ class Form extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: ALIMENTACAO,
       exchangeRates: [],
     };
   }
@@ -66,6 +67,9 @@ class Form extends Component {
       id: prevState.id + 1,
       value: 0,
       description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: ALIMENTACAO,
     }));
 
     const exchangeRates = await fetchAPI();
@@ -108,23 +112,23 @@ class Form extends Component {
 
     updatedExpense(newExpenses);
     editedExpense(false);
-    this.setState({
-      id: 0,
-      value: '',
+    this.setState((prevState) => ({
+      id: prevState.id,
+      value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
+      tag: ALIMENTACAO,
+    }));
   }
 
   render() {
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag, exchangeRates } = this.state;
     const { selectCurrencies, isEditing, test } = this.props;
-
+    console.log(exchangeRates);
     return (
 
-      <form onSubmit={ (event) => this.handleSubmit(event) }>
+      <form>
         <h1>{test}</h1>
         <Input
           labelName="Valor"
@@ -187,7 +191,7 @@ class Form extends Component {
           handleChange={ this.handleChange }
           inputValue={ tag }
         >
-          <option value="Alimentação">Alimentação</option>
+          <option value={ ALIMENTACAO }>{ALIMENTACAO}</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
           <option value="Transporte">Transporte</option>
@@ -197,7 +201,8 @@ class Form extends Component {
         {!isEditing
           ? (
             <Button
-              type="submit"
+              handleClick={ (event) => this.handleSubmit(event) }
+              type="button"
               bsClass="btn btn-primary"
             >
               Adicionar despesa
