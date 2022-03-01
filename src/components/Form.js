@@ -91,7 +91,6 @@ class Form extends Component {
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { selectCurrencies, isEditing } = this.props;
-    console.log('form', isEditing);
     return (
 
       <form onSubmit={ (event) => this.handleSubmit(event) }>

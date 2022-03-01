@@ -57,7 +57,6 @@ class ExpenseTable extends Component {
 
   render() {
     const { expensesState, isEditing } = this.props;
-    console.log('Table', isEditing);
     return (
       <>
         <section>
@@ -97,20 +96,20 @@ class ExpenseTable extends Component {
                   <Button
                     type="button"
                     elementId={ id }
-                    dataTest="edit-btn"
-                    handleClick={ () => this.handleEditeButton(id) }
+                    dataTest="delete-btn"
+                    handleClick={ () => this.handleDeleteExpense(id) }
                   >
-                    Editar
+                    Excluir
                   </Button>
                 </td>
                 <td>
                   <Button
                     type="button"
                     elementId={ id }
-                    dataTest="delete-btn"
-                    handleClick={ () => this.handleDeleteExpense(id) }
+                    dataTest="edit-btn"
+                    handleClick={ () => this.handleEditeButton(id) }
                   >
-                    Excluir
+                    Editar
                   </Button>
                 </td>
               </tr>
