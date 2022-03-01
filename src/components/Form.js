@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
 import Button from './Button';
-import { currencies, expenses } from '../actions';
+import { currencies, editedExpenses, expenses, updatedExpenses } from '../actions';
 import fetchAPI from '../services';
 
 class Form extends Component {
@@ -12,7 +12,7 @@ class Form extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
+    this.handleEdit = this.handleEdit.bind(this);
     this.state = {
       id: 0,
       value: '',
@@ -20,7 +20,7 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      // exchangeRates: [],
+      exchangeRates: [],
     };
   }
 
@@ -29,10 +29,15 @@ class Form extends Component {
     // this.updateState();
   }
 
-  updateState = () => {
+  componentDidUpdate(prevProps) {
     const { formData } = this.props;
+    console.log('formdata', formData);
+    if (prevProps.formData.description !== formData.description) {
+      this.updateState(formData);
+    }
+  }
 
-    console.log('formData', formData);
+  updateState = (formData) => {
     this.setState({
       id: formData.id,
       value: formData.value,
@@ -40,7 +45,7 @@ class Form extends Component {
       currency: formData.currency,
       method: formData.method,
       tag: formData.tag,
-      // exchangeRates: formData.exchangeRates,
+      exchangeRates: formData.exchangeRates,
     });
   }
 
@@ -91,13 +96,29 @@ class Form extends Component {
     });
   }
 
+  handleEdit(event) {
+    event.preventDefault(event);
+    const { expense, editedExpense, updatedExpense } = this.props;
+    const { id, exchangeRates } = this.state;
+    console.log('exchangeRates', exchangeRates);
+    const splitBefore = expense.filter((item) => Number(item.id) < Number(id));
+    const splitLater = expense.filter((item) => Number(item.id) > Number(id));
+
+    const newExpenses = [...splitBefore, this.state, ...splitLater];
+
+    updatedExpense(newExpenses);
+    editedExpense({ isEditing: false });
+  }
+
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { selectCurrencies, isEditing } = this.props;
-
+    const { selectCurrencies, isEditing, test } = this.props;
+    // console.log('value', value);
+    // console.log('descriçao', description);
     return (
 
-      <form>
+      <form onSubmit={ (event) => this.handleSubmit(event) }>
+        <h1>{test}</h1>
         <Input
           labelName="Valor"
           dataTest="value-input"
@@ -123,11 +144,18 @@ class Form extends Component {
           dataTest="currency-input"
           elementId="input-currency"
           name="currency"
-          onChange={ this.handleChange }
+          handleChange={ this.handleChange }
           inputValue={ currency }
         >
           {selectCurrencies.map((moeda) => (
-            <option data-testid={ moeda } key={ moeda }>{moeda}</option>
+            <option
+              data-testid={ moeda }
+              key={ moeda }
+              value={ `${moeda}` }
+            >
+              {moeda}
+
+            </option>
           ))}
         </Select>
 
@@ -136,12 +164,12 @@ class Form extends Component {
           dataTest="method-input"
           elementId="input-method"
           name="method"
-          onChange={ this.handleChange }
-          value={ method }
+          handleChange={ this.handleChange }
+          inputValue={ method }
         >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
+          <option value=" Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </Select>
 
         <Select
@@ -149,20 +177,21 @@ class Form extends Component {
           dataTest="tag-input"
           elementId="input-tag"
           name="tag"
-          onChange={ this.handleChange }
-          value={ tag }
+          handleChange={ this.handleChange }
+          inputValue={ tag }
         >
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </Select>
-        {isEditing
+
+        {!isEditing
           ? (
             <Button
-              handleClick={ this.handleSubmit }
-              type="button"
+              // handleClick={ (event) => this.handleSubmit(event) }
+              type="submit"
               bsClass="btn btn-primary"
             >
               Adicionar despesa
@@ -184,11 +213,14 @@ class Form extends Component {
 const mapStateToProps = (state) => ({
   selectCurrencies: state.wallet.currencies,
   filtered: state.wallet.filter,
+  expense: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   userExpenses: (state) => dispatch(expenses(state)),
   userCurrencies: (state) => dispatch(currencies(state)),
+  updatedExpense: (state) => dispatch(updatedExpenses(state)),
+  editedExpense: (state) => dispatch(editedExpenses(state)),
 });
 
 Form.propTypes = {

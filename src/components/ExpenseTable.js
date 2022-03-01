@@ -30,7 +30,14 @@ class ExpenseTable extends Component {
     this.handleEditButton = this.handleEditButton.bind(this);
 
     this.state = {
-      formData: {},
+      formData: {
+        id: 0,
+        value: '',
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+      },
     };
   }
 
@@ -52,22 +59,19 @@ class ExpenseTable extends Component {
     const filteredExpense = expensesState.find((expense) => expense.id === itemId);
     this.setState({
       formData: filteredExpense,
-    });
-    editedExpense({
-      isEditing: true,
-    });
+    }, () => editedExpense({ isEditing: true }));
   }
 
   render() {
     const { formData } = this.state;
-    console.log(formData);
     const { expensesState, isEditing } = this.props;
+
     return (
       <>
         <section>
           {isEditing
-            ? (<Form formData={ formData } />)
-            : (<Form isEditing={ !isEditing } />)}
+            ? (<Form formData={ formData } isEditing={ isEditing } />)
+            : (<Form isEditing={ isEditing } formData={ formData } />)}
         </section>
 
         <table className="table table-striped table-dark">
@@ -88,7 +92,7 @@ class ExpenseTable extends Component {
               value,
               exchangeRates,
             }) => (
-              <tr key={ id }>
+              <tr key={ `${id}${description}` }>
                 <td>{description}</td>
                 <td>{tag}</td>
                 <td>{method}</td>

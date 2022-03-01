@@ -7,9 +7,9 @@ class Select extends Component {
       dataTest,
       elementId,
       labelName,
-      value,
+      inputValue,
       name,
-      onChange,
+      handleChange,
       children,
     } = this.props;
     return (
@@ -17,11 +17,11 @@ class Select extends Component {
         {labelName}
         <select
           data-testid={ dataTest }
-          className="form-control"
+          className="form-select"
           id={ elementId }
-          value={ value }
+          value={ inputValue }
           name={ name }
-          onChange={ onChange }
+          onChange={ handleChange }
         >
           {children}
         </select>

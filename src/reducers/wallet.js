@@ -35,11 +35,12 @@ function wallet(state = INITIAL_STATE, action) {
   case EDITED_EXPENSES:
     return {
       ...state,
-      isEditing: action.payload.isEditing,
+      isEditing: action.payload,
     };
   case UPDATED_EXPENSES:
     return {
-      expenses: [...action.payload],
+      ...state,
+      expenses: action.payload,
     };
   case FILTER:
     return {
