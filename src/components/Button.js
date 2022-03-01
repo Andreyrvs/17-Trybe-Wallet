@@ -10,12 +10,14 @@ class Button extends Component {
       dataTest,
       handleClick,
       isDisable,
+      bsClass,
     } = this.props;
     return (
       <button
         type={ btnType === 'button' ? 'button' : 'submit' }
         id={ elementId }
         data-testid={ dataTest }
+        className={ bsClass }
         onClick={ handleClick }
         disabled={ isDisable }
       >

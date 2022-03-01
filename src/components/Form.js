@@ -12,7 +12,8 @@ class Form extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.fromTableToForm = this.fromTableToForm.bind(this);
+    // this.updateState = this.updateState.bind(this);
+
     this.state = {
       id: 0,
       value: '',
@@ -20,6 +21,7 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      exchangeRates: [],
     };
   }
 
@@ -27,19 +29,21 @@ class Form extends Component {
     this.handleCurrency();
   }
 
-  // fromTableToForm() {
-  //   const { filtered, editedExpense } = this.props;
-  //   // console.log(filtered);
-
-  //   this.setState({
-  //     id: filtered.id,
-  //     value: filtered.value,
-  //     description: filtered.description,
-  //     currency: filtered.currency,
-  //     method: filtered.method,
-  //     tag: filtered.tag,
-  //   });
-  // }
+  updateState = () => {
+    const { formData, isEditing } = this.props;
+    console.log('formData', formData);
+    if (isEditing) {
+      this.setState({
+        id: formData.id,
+        value: formData.value,
+        description: formData.description,
+        currency: formData.currency,
+        method: formData.method,
+        tag: formData.tag,
+        exchangeRates: formData.exchangeRates,
+      });
+    }
+  }
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -156,11 +160,11 @@ class Form extends Component {
         </Select>
         {isEditing
           ? (
-            <Button type="submit">
+            <Button type="submit" bsClass="btn btn-primary">
               Adicionar despesa
             </Button>
           ) : (
-            <Button type="submit">
+            <Button type="submit" bsClass="btn btn-primary">
               Editar despesa
             </Button>
           )}
@@ -172,7 +176,6 @@ class Form extends Component {
 const mapStateToProps = (state) => ({
   selectCurrencies: state.wallet.currencies,
   filtered: state.wallet.filter,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({

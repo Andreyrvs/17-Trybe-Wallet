@@ -27,7 +27,11 @@ class ExpenseTable extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteExpense = this.handleDeleteExpense.bind(this);
-    this.handleEditeButton = this.handleEditeButton.bind(this);
+    this.handleEditButton = this.handleEditButton.bind(this);
+
+    this.state = {
+      formData: {},
+    };
   }
 
   handleDeleteExpense(itemId) {
@@ -42,13 +46,13 @@ class ExpenseTable extends Component {
     });
   }
 
-  handleEditeButton(itemId) {
-    const { filtered, expensesState, editedExpense } = this.props;
+  handleEditButton(itemId) {
+    const { expensesState, editedExpense } = this.props;
 
     const filteredExpense = expensesState.find((expense) => expense.id === itemId);
 
-    filtered({
-      filter: filteredExpense,
+    this.setState({
+      formData: filteredExpense,
     });
     editedExpense({
       isEditing: true,
@@ -56,16 +60,18 @@ class ExpenseTable extends Component {
   }
 
   render() {
+    const { formData } = this.state;
     const { expensesState, isEditing } = this.props;
+    // console.log('table', formData);
     return (
       <>
         <section>
           {isEditing
             ? (<Form />)
-            : (<Form isEditing={ !isEditing } />)}
+            : (<Form isEditing={ !isEditing } formData={ formData } />)}
         </section>
 
-        <table>
+        <table className="table table-striped table-dark">
           <thead>
             <tr>
               {cabeçalho.map((item) => (
@@ -96,6 +102,7 @@ class ExpenseTable extends Component {
                   <Button
                     type="button"
                     elementId={ id }
+                    bsClass="btn btn-light"
                     dataTest="delete-btn"
                     handleClick={ () => this.handleDeleteExpense(id) }
                   >
@@ -106,8 +113,9 @@ class ExpenseTable extends Component {
                   <Button
                     type="button"
                     elementId={ id }
+                    bsClass="btn btn-light"
                     dataTest="edit-btn"
-                    handleClick={ () => this.handleEditeButton(id) }
+                    handleClick={ () => this.handleEditButton(id) }
                   >
                     Editar
                   </Button>

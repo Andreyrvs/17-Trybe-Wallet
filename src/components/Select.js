@@ -13,10 +13,11 @@ class Select extends Component {
       children,
     } = this.props;
     return (
-      <label htmlFor={ elementId }>
+      <label htmlFor={ elementId } className="m-1">
         {labelName}
         <select
           data-testid={ dataTest }
+          className="form-control"
           id={ elementId }
           value={ value }
           name={ name }
