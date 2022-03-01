@@ -61,14 +61,15 @@ class Form extends Component {
 
   async handleCurrency() {
     const { userCurrencies } = this.props;
-    const exchangeRates = await fetchAPI();
+    const response = await fetchAPI();
+    const exchangeRates = Object.keys(response);
 
-    // const ratesFiltered = exchangeRates.filter((rates) => (
-    //   rates
-    // ))
+    const filteredCoins = exchangeRates.filter((coins) => (
+      coins !== 'USDT'
+    ));
 
     userCurrencies({
-      currencies: exchangeRates,
+      currencies: filteredCoins,
     });
   }
 
@@ -79,7 +80,7 @@ class Form extends Component {
     return (
       <form onSubmit={ (event) => this.handleSubmit(event) }>
         <Input
-          labelName="Value"
+          labelName="Valor"
           dataTest="value-input"
           elementId="input-value"
           name="value"
@@ -99,20 +100,20 @@ class Form extends Component {
         />
 
         <Select
-          labelName="Currency"
+          labelName="Moedas"
           dataTest="currency-input"
           elementId="input-currency"
           name="currency"
           onChange={ this.handleChange }
           inputValue={ currency }
         >
-          {Object.keys(selectCurrencies).map((moeda) => (
+          {selectCurrencies.map((moeda) => (
             <option data-testid={ moeda } key={ moeda }>{moeda}</option>
           ))}
         </Select>
 
         <Select
-          labelName="Method"
+          labelName="Metodo"
           dataTest="method-input"
           elementId="input-method"
           name="method"
