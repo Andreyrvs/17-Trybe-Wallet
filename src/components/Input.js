@@ -9,7 +9,7 @@ class Input extends Component {
       labelName,
       onInputChange,
       name,
-      value,
+      inputValue,
       inputType,
       autoComplete,
     } = this.props;
@@ -23,7 +23,7 @@ class Input extends Component {
           name={ name }
           onChange={ onInputChange }
           type={ inputType }
-          value={ value }
+          value={ inputValue }
         />
       </label>
     );
@@ -36,7 +36,7 @@ Input.propTypes = {
   labelName: PropTypes.string,
   onInputChange: PropTypes.func,
   name: PropTypes.string,
-  value: PropTypes.string,
+  inputValue: PropTypes.string,
   inputType: PropTypes.string,
 }.isRequire;
 

@@ -1,25 +1,30 @@
-export const USER_EMAIL = 'USER_EMAIL';
+import fetchAPI from '../services';
 
-function userEmail(payload) {
+export const USER_EMAIL = 'USER_EMAIL';
+export const EXPENSES = 'EXPENSES';
+export const CURRENCIES = 'CURRENCIES';
+
+export function userEmail(payload) {
   return { type: USER_EMAIL, payload };
 }
 
-// function /* nome da action2 */() {
-//   return async (dispatch) => {
+export function expenses(payload) {
+  return { type: EXPENSES, payload };
+}
 
-//     /* ===> despacha action com o erro */
+export function currencies(payload) {
+  return { type: CURRENCIES, payload };
+}
 
-//     try {
+function expensesThunk() {
+  return async (dispatch) => {
+    try {
+      const request = await fetchAPI();
+      dispatch(expenses(request));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
-//       /* ===> requisição da API */
-//       /* ===> despacha action com os dados do personagem */
-
-//     } catch (error) {
-
-//       /* ===> despacha action com o erro */
-
-//     }
-//   }
-// }
-
-export default userEmail;
+export default expensesThunk;

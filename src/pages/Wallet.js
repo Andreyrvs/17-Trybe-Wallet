@@ -9,28 +9,27 @@ class Wallet extends Component {
     this.handleTotalExpenses = this.handleTotalExpenses.bind(this);
   }
 
-  componentDidMount() {
-    this.handleTotalExpenses();
-  }
-
   handleTotalExpenses() {
-    const { expense } = this.props;
-
-    expense.reduce((acc, atualExpense) => (acc + atualExpense.value), 0);
+    const { userExpenses } = this.props;
+    return userExpenses.reduce((acc, expense) => (
+      acc + expense.value * expense.exchangeRates[expense.currency].ask
+    ), 0);
   }
 
   render() {
     const { email } = this.props;
     return (
       <>
-        <header
-          data-testid="email-field"
-        >
+        <header>
           <section>
-            <span>{email}</span>
+            <span data-testid="email-field">{email}</span>
           </section>
           <section>
-            <span data-testid="total-field">{this.handleTotalExpenses()}</span>
+            <span data-testid="total-field">
+              Despesa Total:
+              {' '}
+              {(this.handleTotalExpenses()).toFixed(2)}
+            </span>
             <span data-testid="header-currency-field">BRL</span>
           </section>
         </header>
@@ -44,11 +43,11 @@ class Wallet extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  expense: state.wallet.expenses,
+  userExpenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string,
+  email: PropTypes.object,
 }.isRequire;
 
 export default connect(mapStateToProps)(Wallet);
