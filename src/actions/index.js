@@ -4,6 +4,7 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const EXPENSES = 'EXPENSES';
 export const CURRENCIES = 'CURRENCIES';
 export const DELETE_EXPENSES = 'DELETE_EXPENSES';
+export const EDITED_EXPENSES = ' EDITED_EXPENSES';
 
 export function userEmail(payload) {
   return { type: USER_EMAIL, payload };
@@ -19,6 +20,10 @@ export function currencies(payload) {
 
 export function deleteExpenses(payload) {
   return { type: DELETE_EXPENSES, payload };
+}
+
+export function editedExpenses(payload) {
+  return { type: EDITED_EXPENSES, payload };
 }
 
 function expensesThunk() {

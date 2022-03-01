@@ -75,9 +75,10 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { selectCurrencies } = this.props;
+    const { selectCurrencies, editedExpense } = this.props;
 
     return (
+
       <form onSubmit={ (event) => this.handleSubmit(event) }>
         <Input
           labelName="Valor"
@@ -139,12 +140,16 @@ class Form extends Component {
           <option>Transporte</option>
           <option>Saúde</option>
         </Select>
-
-        <Button
-          type="submit"
-        >
-          Adicionar despesa
-        </Button>
+        {editedExpense
+          ? (
+            <Button type="submit">
+              Adicionar despesa
+            </Button>
+          ) : (
+            <Button type="submit">
+              Editar despesa
+            </Button>
+          )}
       </form>
     );
   }
@@ -152,6 +157,7 @@ class Form extends Component {
 
 const mapStateToProps = (state) => ({
   selectCurrencies: state.wallet.currencies,
+  // editedExpenses: state.wallet.editedExpenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

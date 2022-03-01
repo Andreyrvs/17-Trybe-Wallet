@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import { deleteExpenses } from '../actions';
+import { deleteExpenses, editedExpenses } from '../actions';
+import Form from './Form';
 
 const cabeçalho = [
   'Descrição',
@@ -20,6 +21,7 @@ class ExpenseTable extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteExpense = this.handleDeleteExpense.bind(this);
+    this.handleEditeButton = this.handleEditeButton.bind(this);
   }
 
   handleDeleteExpense(itemId) {
@@ -31,6 +33,20 @@ class ExpenseTable extends Component {
 
     deleteExpense({
       expenses: newExpenses,
+    });
+  }
+
+  handleEditeButton(itemId) {
+    const { editedExpense, userExpenses } = this.props;
+
+    const filteredExpense = userExpenses.find((expense) => expense.id === itemId);
+
+    editedExpense({
+      // expenses: filteredExpense,
+      editedExpenses: true,
+    });
+    this.setState({
+      isTrue: true,
     });
   }
 
@@ -68,8 +84,9 @@ class ExpenseTable extends Component {
               <td>
                 <Button
                   type="button"
-                  elementId="edit-button"
-                  handleClick={ () => {} }
+                  elementId={ id }
+                  dataTest="edit-btn"
+                  handleClick={ () => this.handleEditeButton(id) }
                 >
                   Editar
                 </Button>
@@ -98,6 +115,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (state) => dispatch(deleteExpenses(state)),
+  editedExpense: (state) => dispatch(editedExpenses(state)),
 });
 
 ExpenseTable.propTypes = {

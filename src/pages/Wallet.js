@@ -18,7 +18,7 @@ class Wallet extends Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, editedExpense } = this.props;
     return (
       <>
         <header>
@@ -36,7 +36,9 @@ class Wallet extends Component {
         </header>
         <main>
           <section>
-            <Form />
+            {editedExpense
+              ? (<Form />)
+              : (<Form editedExpense={ !editedExpense } />)}
           </section>
           <section>
             <ExpenseTable />
@@ -50,6 +52,7 @@ class Wallet extends Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   userExpenses: state.wallet.expenses,
+  editedExpense: state.wallet.editedExpenses,
 });
 
 Wallet.propTypes = {

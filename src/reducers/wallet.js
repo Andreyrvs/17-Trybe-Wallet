@@ -1,8 +1,14 @@
-import { CURRENCIES, DELETE_EXPENSES, EXPENSES } from '../actions';
+import {
+  CURRENCIES,
+  DELETE_EXPENSES,
+  EXPENSES,
+  EDITED_EXPENSES,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  editedExpenses: false,
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -22,6 +28,12 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...action.payload.expenses],
+    };
+  case EDITED_EXPENSES:
+    return {
+      ...state,
+      // expenses: [...action.payload],
+      editedExpenses: action.payload.editedExpenses,
     };
   default:
     return state;
