@@ -3,12 +3,15 @@ import {
   DELETE_EXPENSES,
   EXPENSES,
   EDITED_EXPENSES,
+  UPDATED_EXPENSES,
+  FILTER,
 } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   editedExpenses: false,
+  filter: [],
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -32,8 +35,16 @@ function wallet(state = INITIAL_STATE, action) {
   case EDITED_EXPENSES:
     return {
       ...state,
-      // expenses: [...action.payload],
       editedExpenses: action.payload.editedExpenses,
+    };
+  case UPDATED_EXPENSES:
+    return {
+      expenses: [...action.payload],
+    };
+  case FILTER:
+    return {
+      ...state,
+      filter: action.payload,
     };
   default:
     return state;

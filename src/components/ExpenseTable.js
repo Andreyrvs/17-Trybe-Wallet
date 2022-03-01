@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import { deleteExpenses, editedExpenses } from '../actions';
-import Form from './Form';
+import {
+  deleteExpenses,
+  // editedExpenses,
+  expenses,
+  // filter,
+  updatedExpenses,
+} from '../actions';
 
 const cabeçalho = [
   'Descrição',
@@ -21,13 +26,13 @@ class ExpenseTable extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteExpense = this.handleDeleteExpense.bind(this);
-    this.handleEditeButton = this.handleEditeButton.bind(this);
+    // this.handleEditeButton = this.handleEditeButton.bind(this);
   }
 
   handleDeleteExpense(itemId) {
-    const { userExpenses, deleteExpense } = this.props;
+    const { expensesState, deleteExpense } = this.props;
 
-    const newExpenses = userExpenses.filter((expense) => (
+    const newExpenses = expensesState.filter((expense) => (
       expense.id !== itemId
     ));
 
@@ -36,22 +41,21 @@ class ExpenseTable extends Component {
     });
   }
 
-  handleEditeButton(itemId) {
-    const { editedExpense, userExpenses } = this.props;
+  // handleEditeButton(itemId) {
+  //   const { filtered, expensesState, editedExpense } = this.props;
 
-    const filteredExpense = userExpenses.find((expense) => expense.id === itemId);
+  //   const filteredExpense = expensesState.find((expense) => expense.id === itemId);
 
-    editedExpense({
-      // expenses: filteredExpense,
-      editedExpenses: true,
-    });
-    this.setState({
-      isTrue: true,
-    });
-  }
+  //   filtered({
+  //     filter: filteredExpense,
+  //   });
+  //   editedExpense({
+  //     editedExpenses: true,
+  //   });
+  // }
 
   render() {
-    const { userExpenses } = this.props;
+    const { expensesState, handleEditeButton } = this.props;
 
     return (
       <table>
@@ -63,7 +67,7 @@ class ExpenseTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {userExpenses.map(({
+          {expensesState.map(({
             id,
             currency,
             description,
@@ -86,7 +90,7 @@ class ExpenseTable extends Component {
                   type="button"
                   elementId={ id }
                   dataTest="edit-btn"
-                  handleClick={ () => this.handleEditeButton(id) }
+                  handleClick={ handleEditeButton }
                 >
                   Editar
                 </Button>
@@ -110,15 +114,18 @@ class ExpenseTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  userExpenses: state.wallet.expenses,
+  expensesState: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  userExpense: (state) => dispatch(expenses(state)),
   deleteExpense: (state) => dispatch(deleteExpenses(state)),
-  editedExpense: (state) => dispatch(editedExpenses(state)),
+  updatedExpense: (state) => dispatch(updatedExpenses(state)),
+  // filtered: (state) => dispatch(filter(state)),
+  // editedExpense: (state) => dispatch(editedExpenses(state)),
 });
 
 ExpenseTable.propTypes = {
-  userExpenses: PropTypes.object,
+  expensesState: PropTypes.object,
 }.isRequire;
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

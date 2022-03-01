@@ -3,18 +3,33 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from '../components/Form';
 import ExpenseTable from '../components/ExpenseTable';
+import { filter, editedExpenses } from '../actions';
 
 class Wallet extends Component {
   constructor(props) {
     super(props);
     this.handleTotalExpenses = this.handleTotalExpenses.bind(this);
+    this.handleEditeButton = this.handleEditeButton.bind(this);
   }
 
   handleTotalExpenses() {
-    const { userExpenses } = this.props;
-    return userExpenses.reduce((acc, expense) => (
+    const { expensesState } = this.props;
+    return expensesState.reduce((acc, expense) => (
       acc + expense.value * expense.exchangeRates[expense.currency].ask
     ), 0);
+  }
+
+  handleEditeButton(itemId) {
+    const { filtered, expensesState, editedExpense } = this.props;
+
+    const filteredExpense = expensesState.find((expense) => expense.id === itemId);
+
+    filtered({
+      filter: filteredExpense,
+    });
+    editedExpense({
+      editedExpenses: true,
+    });
   }
 
   render() {
@@ -41,7 +56,7 @@ class Wallet extends Component {
               : (<Form editedExpense={ !editedExpense } />)}
           </section>
           <section>
-            <ExpenseTable />
+            <ExpenseTable handleEditeButton={ this.handleEditeButton } />
           </section>
         </main>
       </>
@@ -51,12 +66,17 @@ class Wallet extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  userExpenses: state.wallet.expenses,
-  editedExpense: state.wallet.editedExpenses,
+  expensesState: state.wallet.expenses,
+  // editedExpense: state.wallet.editedExpenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  filtered: (state) => dispatch(filter(state)),
+  editedExpense: (state) => dispatch(editedExpenses(state)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.object,
 }.isRequire;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

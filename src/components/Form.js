@@ -12,6 +12,7 @@ class Form extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.fromTableToForm = this.fromTableToForm.bind(this);
     this.state = {
       id: 0,
       value: '',
@@ -24,6 +25,20 @@ class Form extends Component {
 
   componentDidMount() {
     this.handleCurrency();
+  }
+
+  fromTableToForm() {
+    const { filtered, editedExpense } = this.props;
+    // console.log(filtered);
+
+    this.setState({
+      id: filtered.id,
+      value: filtered.value,
+      description: filtered.description,
+      currency: filtered.currency,
+      method: filtered.method,
+      tag: filtered.tag,
+    });
   }
 
   handleChange({ target }) {
@@ -157,7 +172,8 @@ class Form extends Component {
 
 const mapStateToProps = (state) => ({
   selectCurrencies: state.wallet.currencies,
-  // editedExpenses: state.wallet.editedExpenses,
+  filtered: state.wallet.filter,
+  // editedExpense: state.wallet.editedExpenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
