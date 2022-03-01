@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userExpenses } from '../actions';
+import { currenciesArray, userExpenses } from '../actions';
 import Input from './Input';
 import Button from './Button';
 import fetchAPI from '../services';
@@ -22,7 +22,6 @@ class Form extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      coin: '',
     };
   }
 
@@ -65,19 +64,19 @@ class Form extends Component {
   }
 
   async handleCurrency() {
+    const { currencieArray } = this.props;
     const responseAPI = await fetchAPI();
     const arrayCoin = Object.keys(responseAPI);
 
     const filteredCoin = arrayCoin.filter((coin) => coin !== 'USDT');
-    this.setState({
-      coin: filteredCoin,
-    });
+
+    currencieArray(filteredCoin);
   }
 
   render() {
-    const { value, description, currency, method, tag, coin } = this.state;
-    const { editForm } = this.props;
-
+    const { value, description, currency, method, tag } = this.state;
+    const { editForm, currenciez } = this.props;
+    console.log('currencieArray', currenciez);
     return (
       <div>
         {!editForm
@@ -111,8 +110,8 @@ class Form extends Component {
                   name="currency"
                   value={ currency }
                 >
-                  { coin.length > 0
-                && coin.map((currencies) => (
+                  { currenciez.length > 0
+                && currenciez.map((currencies) => (
                   <option key={ currencies } data-testid={ currencies }>
                     {currencies}
                   </option>
@@ -197,10 +196,12 @@ class Form extends Component {
 const mapStateToProps = (state) => ({
   filteredCoin: state.wallet.filter,
   editForm: state.wallet.editForm,
+  currenciez: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   expensesForm: (state) => dispatch(userExpenses(state)),
+  currencieArray: (state) => dispatch(currenciesArray(state)),
 });
 
 Form.propTypes = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeForms, editUserExpenses, userExpenses, currenciesArray } from '../actions';
+import { changeForms, editUserExpenses, userExpenses } from '../actions';
 import Input from './Input';
 import Button from './Button';
 import fetchAPI from '../services';
@@ -21,7 +21,7 @@ class EditForm extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      coin: '',
+      coins: '',
       exchangeRates: [],
     };
   }
@@ -57,34 +57,28 @@ class EditForm extends Component {
     event.preventDefault(event);
     const { expenses, changeForm, editUserExpense } = this.props;
     const { id, exchangeRates } = this.state;
+    console.log('exchangeRates', exchangeRates);
+    const splitBefore = expenses.filter((item) => Number(item.id) < Number(id));
+    const splitLater = expenses.filter((item) => Number(item.id) > Number(id));
 
-    console.log(exchangeRates);
-    const p1 = expenses.filter((item) => Number(item.id) < Number(id));
-    const p2 = expenses.filter((item) => Number(item.id) > Number(id));
-    // console.log('p1', p1);
-    // console.log('p2', p2);
+    const updatedExpenses = [...splitBefore, this.state, ...splitLater];
 
-    const updatedExpenses = [...p1, this.state, ...p2];
-    // console.log(updatedExpenses);
     editUserExpense(updatedExpenses);
     changeForm({ editForm: false });
   }
 
   async handleCurrency() {
-    const { currencie } = this.props;
     const responseAPI = await fetchAPI();
     const arrayCoin = Object.keys(responseAPI);
 
     const filteredCoin = arrayCoin.filter((coin) => coin !== 'USDT');
     this.setState({
-      coin: filteredCoin,
+      coins: filteredCoin,
     });
-
-    currencie(filteredCoin);
   }
 
   render() {
-    const { value, description, currency, method, tag, coin } = this.state;
+    const { value, description, currency, method, tag, coins } = this.state;
     const { editForm } = this.props;
 
     return (
@@ -92,12 +86,14 @@ class EditForm extends Component {
         {editForm
         && (
           <form
-            style={ { backgroundColor: ' green' } }
+            style={ { backgroundColor: '#156E44' } }
+            className="m-2"
             id="form-expenses"
             onSubmit={ (event) => this.handleEdit(event) }
           >
             <fieldset>
               <Input
+                classBS="form-control"
                 dataTest="value-input"
                 elementId="input-value"
                 onInputChange={ this.handleChange }
@@ -108,18 +104,19 @@ class EditForm extends Component {
                 {' '}
               </Input>
 
-              <label htmlFor="select-currency">
+              <label htmlFor="select-currency" className="m-1">
                 Moeda:
                 {' '}
                 <select
+                  className="form-select"
                   data-testid="currency-input"
                   id="select-currency"
                   onChange={ this.handleChange }
                   name="currency"
                   value={ currency }
                 >
-                  { coin.length > 0
-                && coin.map((currencies) => (
+                  { coins.length > 0
+                && coins.map((currencies) => (
                   <option key={ currencies } data-testid={ currencies }>
                     {currencies}
                   </option>
@@ -127,10 +124,11 @@ class EditForm extends Component {
                 </select>
               </label>
 
-              <label htmlFor="input-method">
+              <label htmlFor="input-method" className="m-1">
                 Método de pegamento:
                 {' '}
                 <select
+                  className="form-select"
                   data-testid="method-input"
                   id="input-method"
                   name="method"
@@ -149,10 +147,11 @@ class EditForm extends Component {
                 </select>
               </label>
 
-              <label htmlFor="input-tag">
+              <label htmlFor="input-tag" className="m-1">
                 Tag:
                 {' '}
                 <select
+                  className="form-select"
                   data-testid="tag-input"
                   id="input-tag"
                   onChange={ this.handleChange }
@@ -172,6 +171,7 @@ class EditForm extends Component {
               </label>
 
               <Input
+                classBS="form-control"
                 dataTest="description-input"
                 elementId="input-description"
                 onInputChange={ this.handleChange }
@@ -183,6 +183,7 @@ class EditForm extends Component {
               </Input>
 
               <Button
+                buttonBS="btn btn-danger m-1"
                 btnType="submit"
                 elementId="add-expenses"
               >
@@ -208,7 +209,6 @@ const mapDispatchToProps = (dispatch) => ({
   editUserExpense: (state) => dispatch(editUserExpenses(state)),
   changeForm: (state) => dispatch(changeForms(state)),
   userExpense: (state) => dispatch(userExpenses(state)),
-  currencie: (state) => dispatch(currenciesArray(state)),
 });
 
 EditForm.propTypes = {

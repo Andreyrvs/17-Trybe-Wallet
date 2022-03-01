@@ -45,6 +45,7 @@ class Table extends Component {
   render() {
     const { expenses, editForm } = this.props;
     const { formData } = this.state;
+    console.log('expenses', expenses);
     return (
       <div className="table-responsive-md">
         { editForm
@@ -90,14 +91,14 @@ class Table extends Component {
                 <td>Real</td>
                 <td>
                   <Button
-                    buttonBS="btn btn-light m-1"
+                    buttonBS="btn btn-warning m-1"
                     dataTest="edit-btn"
                     handleClick={ () => { this.handleEditBtn(id); } }
                   >
                     <AiOutlineEdit style={ { fontSize: '20px' } } />
                   </Button>
                   <Button
-                    buttonBS="btn btn-light m1"
+                    buttonBS="btn btn-danger m1"
                     dataTest="delete-btn"
                     type="button"
                     elementId={ id }
