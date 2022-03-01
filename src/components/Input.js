@@ -12,7 +12,6 @@ class Input extends Component {
       inputValue,
       inputType,
       autoComplete,
-
     } = this.props;
     return (
       <label htmlFor={ elementId } className="form-label m-1">

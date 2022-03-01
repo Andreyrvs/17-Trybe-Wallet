@@ -31,7 +31,7 @@ class Form extends Component {
 
   componentDidUpdate(prevProps) {
     const { formData } = this.props;
-    console.log('formdata', formData);
+
     if (prevProps.formData.description !== formData.description) {
       this.updateState(formData);
     }
@@ -99,22 +99,29 @@ class Form extends Component {
   handleEdit(event) {
     event.preventDefault(event);
     const { expense, editedExpense, updatedExpense } = this.props;
-    const { id, exchangeRates } = this.state;
-    console.log('exchangeRates', exchangeRates);
+    const { id } = this.state;
+
     const splitBefore = expense.filter((item) => Number(item.id) < Number(id));
     const splitLater = expense.filter((item) => Number(item.id) > Number(id));
 
     const newExpenses = [...splitBefore, this.state, ...splitLater];
 
     updatedExpense(newExpenses);
-    editedExpense({ isEditing: false });
+    editedExpense(false);
+    this.setState({
+      id: 0,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   }
 
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { selectCurrencies, isEditing, test } = this.props;
-    // console.log('value', value);
-    // console.log('descriçao', description);
+
     return (
 
       <form onSubmit={ (event) => this.handleSubmit(event) }>
@@ -190,7 +197,6 @@ class Form extends Component {
         {!isEditing
           ? (
             <Button
-              // handleClick={ (event) => this.handleSubmit(event) }
               type="submit"
               bsClass="btn btn-primary"
             >
@@ -198,7 +204,7 @@ class Form extends Component {
             </Button>
           ) : (
             <Button
-              handleClick={ () => {} }
+              handleClick={ this.handleEdit }
               type="button"
               bsClass="btn btn-primary"
             >

@@ -12,7 +12,7 @@ class Wallet extends Component {
 
   handleTotalExpenses() {
     const { expensesState } = this.props;
-    // console.log('Wallet- expensesState', expensesState);
+
     return expensesState.reduce((acc, expense) => (
       acc + expense.value * expense.exchangeRates[expense.currency].ask
     ), 0);

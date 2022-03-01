@@ -59,7 +59,7 @@ class ExpenseTable extends Component {
     const filteredExpense = expensesState.find((expense) => expense.id === itemId);
     this.setState({
       formData: filteredExpense,
-    }, () => editedExpense({ isEditing: true }));
+    }, () => editedExpense(true));
   }
 
   render() {
