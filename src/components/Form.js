@@ -97,7 +97,7 @@ class Form extends Component {
     const { selectCurrencies, isEditing } = this.props;
     return (
 
-      <form onSubmit={ (event) => this.handleSubmit(event) }>
+      <form>
         <Input
           labelName="Valor"
           dataTest="value-input"
@@ -160,11 +160,11 @@ class Form extends Component {
         </Select>
         {isEditing
           ? (
-            <Button type="submit" bsClass="btn btn-primary">
+            <Button handleClick={ this.handleSubmit } type="button" bsClass="btn btn-primary">
               Adicionar despesa
             </Button>
           ) : (
-            <Button type="submit" bsClass="btn btn-primary">
+            <Button handleClick={ this.updateState } type="button" bsClass="btn btn-primary">
               Editar despesa
             </Button>
           )}
