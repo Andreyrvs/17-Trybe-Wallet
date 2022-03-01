@@ -11,6 +11,7 @@ class Input extends Component {
       name,
       value,
       inputType,
+      autoComplete,
     } = this.props;
     return (
       <label htmlFor={ elementId }>
@@ -22,6 +23,7 @@ class Input extends Component {
           value={ value }
           onChange={ onInputChange }
           type={ inputType }
+          autoComplete={ autoComplete }
         />
       </label>
     );

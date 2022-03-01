@@ -1,6 +1,6 @@
 export const USER_EMAIL = 'USER_EMAIL';
 
-function userEmail() {
+function userEmail(payload) {
   return { type: USER_EMAIL, payload };
 }
 
