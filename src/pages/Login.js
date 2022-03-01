@@ -10,8 +10,8 @@ const PASSWORD_LIMIT = 6;
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
 
     this.state = {
@@ -29,17 +29,6 @@ class Login extends React.Component {
     }, () => this.handleValidation());
   }
 
-  handleSubmit(event) {
-    event.preventDefault(event);
-    const { email } = this.state;
-    const { usersEmail, history } = this.props;
-
-    usersEmail({ email });
-    history.push('/carteira');
-
-    fetchAPI();
-  }
-
   handleValidation() {
     const { email, password } = this.state;
     const regexEmail = /\w+@+\w+\.com/ig;
@@ -55,36 +44,47 @@ class Login extends React.Component {
     }
   }
 
+  handleSubmit(event) {
+    event.preventDefault(event);
+    const { email } = this.state;
+    const { usersEmail, history } = this.props;
+
+    usersEmail({ email });
+    history.push('/carteira');
+
+    fetchAPI();
+  }
+
   render() {
     const { email, isDisable, password } = this.state;
     return (
       <form onSubmit={ (event) => this.handleSubmit(event) }>
 
         <Input
-          labelName="Email"
           dataTest="email-input"
           elementId="input-email"
           inputType="email"
+          labelName="Email"
           name="email"
-          value={ email }
           onInputChange={ this.handleChange }
+          value={ email }
         />
 
         <Input
-          labelName="Senha"
+          autoComplete="off"
           dataTest="password-input"
           elementId="input-password"
           inputType="password"
+          labelName="Senha"
           name="password"
-          value={ password }
           onInputChange={ this.handleChange }
-          autoComplete="off"
+          value={ password }
         />
 
         <Button
-          type="submit"
           elementId="btn-login"
           isDisable={ isDisable }
+          type="submit"
         >
           Entrar
         </Button>
