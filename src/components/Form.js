@@ -57,8 +57,8 @@ class Form extends Component {
     });
   }
 
-  async handleAddExpense(event) {
-    event.preventDefault(event);
+  async handleAddExpense() {
+    // event.preventDefault(event);
     const { id, value, description, currency, method, tag } = this.state;
     const { userExpenses } = this.props;
 
@@ -112,15 +112,15 @@ class Form extends Component {
 
     updatedExpense(newExpenses);
     editedExpense(false);
-    this.setState((prevState) => ({
-      id: prevState.id,
+    this.setState({
+
       value: 0,
       description: '',
       currency: 'USD',
-      // method: 'Dinheiro',
-      // tag: 'Alimentação',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       // exchangeRates: [],
-    }));
+    });
   }
 
   render() {

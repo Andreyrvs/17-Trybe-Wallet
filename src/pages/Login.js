@@ -67,7 +67,7 @@ class Login extends React.Component {
           labelName="Email"
           name="email"
           onInputChange={ this.handleChange }
-          value={ email }
+          inputValue={ email }
         />
 
         <Input
@@ -78,13 +78,14 @@ class Login extends React.Component {
           labelName="Senha"
           name="password"
           onInputChange={ this.handleChange }
-          value={ password }
+          inputValue={ password }
         />
 
         <Button
+          bsClass="btn btn-primary"
           elementId="btn-login"
           isDisable={ isDisable }
-          type="submit"
+          btnType="submit"
         >
           Entrar
         </Button>
