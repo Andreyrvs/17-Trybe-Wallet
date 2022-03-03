@@ -68,7 +68,7 @@ class Form extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: '',
       // exchangeRates: [],
     }));
 
@@ -118,7 +118,7 @@ class Form extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: '',
       // exchangeRates: [],
     });
   }
