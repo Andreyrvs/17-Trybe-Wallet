@@ -1,5 +1,7 @@
 # Wallet
 
+![Imagem da carteira](./Aplicacao.png)
+
 ## Contexto
 
 Este projeto trata-se de uma carteira de controle de gastos com conversor de moedas.
