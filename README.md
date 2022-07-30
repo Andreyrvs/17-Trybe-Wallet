@@ -1,16 +1,45 @@
-# 🚧 README em construção 🚧
+# Wallet
 
-<!-- Olá, Tryber!
+## Contexto
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+Este projeto trata-se de uma carteira de controle de gastos com conversor de moedas.
+</br>Sendo possivel:
 
-É essencial que você preencha esse documento por conta própria, ok?
+* Adicionar, remover e editar um gasto;
+* Visualizar uma tabelas com seus gastos;
+* Visualizar o total de gastos convertidos para uma moeda de escolha;
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+## Técnologias usadas
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+Front-end:
+> Desenvolvido usando: React, Reat Router, React Icons, Redux, Bootsrap
 
--->
+## Instalando Dependências
+
+* clone o repositorio
+
+  ```bash
+    git clone git@github.com:Andreyrvs/trybewallet.git
+  ```
+
+* instale as dependências:
+
+  ```bash
+    npm install
+  ```
+
+## Executando aplicação
+
+* Para rodar o front-end:
+
+  ```bash
+    npm start
+  ```
+
+## Executando Testes
+
+* Para rodar os testes de linter:
+
+  ```bash
+    npm run lint
+  ```
