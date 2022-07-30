@@ -12,7 +12,7 @@ Este projeto trata-se de uma carteira de controle de gastos com conversor de moe
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, Reat Router, React Icons, Redux, Bootsrap
+> Desenvolvido usando: React, React Router, React Icons, Redux, Redux Thunk, Bootstrap
 
 ## Instalando Dependências
 
