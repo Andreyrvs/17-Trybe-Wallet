@@ -33,7 +33,7 @@ Adquiri essas habilidades ao desenvolver esse projeto:
 
 ## Preview da Aplicação
 
-| ![Login](./aplicacao) | ![Home](./aplicacao-) |
+| ![Login](./aplicacao-login.png) | ![Home](./aplicacao-home.png) |
 | ----------- | ----------- |
 
 ## Instalando Dependências
