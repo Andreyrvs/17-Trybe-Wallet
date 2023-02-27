@@ -1,0 +1,15 @@
+.page {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(251, 251, 251);
+  height: 1024px;
+  width: 1440px;
+}
+
+.form {
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  }
